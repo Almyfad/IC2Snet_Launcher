@@ -5,21 +5,21 @@ on:
   push:
     branches:
     # this will run on the electron branch
-      - electron
+      - master
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   build_on_mac:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
       with:
-        ref: electron
+        ref: master
     - uses: actions/setup-node@master
       with:
         node-version: 16.10
     - name: see directory
       run: ls
-build_on_win:
+  build_on_win:
     runs-on: windows-2016
     steps:
     - uses: actions/checkout@master
