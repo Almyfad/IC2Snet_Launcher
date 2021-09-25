@@ -1,6 +1,5 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.74.16",
   "version": "0.74.17",
   "private": false,
   "main": "main.js",
@@ -33,12 +32,9 @@
       "hardenedRuntime": true,
       "publish": [
         {
-          "hardenedRuntime": true,
-          "entitlements": "./public/entitlements.mac.inherit.plist",
           "provider": "github",
           "owner": "Almyfad",
-          "repo": "IC2Snet_Launcher",
-          "token": "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"
+          "repo": "IC2Snet_Launcher"
         }
       ]
     },
@@ -48,8 +44,7 @@
         {
           "provider": "github",
           "owner": "Almyfad",
-          "repo": "IC2Snet_Launcher",
-          "token": "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"
+          "repo": "IC2Snet_Launcher"
         }
       ]
     }
