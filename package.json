@@ -1,6 +1,7 @@
 {
   "name": "ic2snet-launcher",
   "version": "0.74.16",
+  "version": "0.74.17",
   "private": false,
   "main": "main.js",
   "author": "LS Development Service",
@@ -27,6 +28,9 @@
     "mac": {
       "category": "ICS2.net.Intranet.category",
       "icon": "build/mac-icon.icns",
+      "entitlements": "./entitlements.mac.inherit.plist",
+      "entitlementsInherit": "./entitlements.mac.inherit.plist",
+      "hardenedRuntime": true,
       "publish": [
         {
           "hardenedRuntime": true,
@@ -39,6 +43,7 @@
       ]
     },
     "win": {
+      "icon": "build/win-icon.png",
       "publish": [
         {
           "provider": "github",
