@@ -1,0 +1,52 @@
+{
+  "name": "ic2snet-launcher",
+  "version": "0.74.16",
+  "private": false,
+  "main": "main.js",
+  "author": "LS Development Service",
+  "description": "IC2S.net intranet Launcher",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Almyfad/IC2Snet_Launcher.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "publish": "electron-builder --publish always"
+  },
+  "dependencies": {
+    "electron-log": "^4.4.1",
+    "electron-updater": "^4.3.9"
+  },
+  "devDependencies": {
+    "electron": "^15.0.0",
+    "electron-builder": "^22.11.7"
+  },
+  "build": {
+    "appId": "ic2s.net.intranet-launcher",
+    "mac": {
+      "category": "ICS2.net.Intranet.category",
+      "icon": "build/mac-icon.icns",
+      "publish": [
+        {
+          "hardenedRuntime": true,
+          "entitlements": "./public/entitlements.mac.inherit.plist",
+          "provider": "github",
+          "owner": "Almyfad",
+          "repo": "IC2Snet_Launcher",
+          "token": "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"
+        }
+      ]
+    },
+    "win": {
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "Almyfad",
+          "repo": "IC2Snet_Launcher",
+          "token": "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"
+        }
+      ]
+    }
+  }
+}
