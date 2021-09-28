@@ -26,6 +26,7 @@
   },
   "build": {
     "appId": "ic2s.net.intranet-launcher",
+    "afterSign": "notarize.js",
     "mac": {
       "category": "ICS2.net.Intranet.category",
       "icon": "mac-icon.icns",
@@ -33,7 +34,6 @@
       "entitlementsInherit": "./entitlements.mac.inherit.plist",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "afterSign": "notarize.js",
       "publish": [
         {
           "provider": "github",
