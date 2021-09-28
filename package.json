@@ -15,21 +15,25 @@
     "publish": "electron-builder --publish always"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9"
   },
   "devDependencies": {
     "electron": "^15.0.0",
-    "electron-builder": "^22.11.7"
+    "electron-builder": "^22.11.7",
+    "electron-notarize": "^1.1.1"
   },
   "build": {
     "appId": "ic2s.net.intranet-launcher",
     "mac": {
       "category": "ICS2.net.Intranet.category",
-      "icon": "build/mac-icon.icns",
+      "icon": "mac-icon.icns",
       "entitlements": "./entitlements.mac.inherit.plist",
       "entitlementsInherit": "./entitlements.mac.inherit.plist",
       "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "afterSign": "notarize.js",
       "publish": [
         {
           "provider": "github",
@@ -39,7 +43,7 @@
       ]
     },
     "win": {
-      "icon": "build/win-icon.png",
+      "icon": "win-icon.png",
       "publish": [
         {
           "provider": "github",
