@@ -7,6 +7,9 @@ autoUpdater.checkForUpdatesAndNotify()
 
 
 let mainWindow = null;
+let trayIcon = null; //Prevent garbage collecter to make disapear icon
+
+
 
 /*---------------------UNIQ INSTANCE------------------------*/
 /*---------------------------------------------------------*/
@@ -29,8 +32,7 @@ if (!gotTheLock) {
 /*---------------------    TRAY    ------------------------*/
 /*---------------------------------------------------------*/
 let SetTray = () => {
-  let tray = null
-  tray = new Tray(path.join(__dirname, 'icon16x16.png'))
+  trayIcon = new Tray(path.join(__dirname, 'icon16x16.png'))
   const contextTrayedMenu = Menu.buildFromTemplate([
     {
       label: 'Ouvrir', click: show
@@ -38,14 +40,13 @@ let SetTray = () => {
     {
       label: 'Quitter', click: function () {
         app.isQuiting = true;
-        RemoveMountedFolder()
         app.quit();
       }
     }
   ]);
-  tray.setToolTip('IC2S.net Intranet')
-  tray.setContextMenu(contextTrayedMenu)
-  return tray;
+  trayIcon.setToolTip('IC2S.net Intranet')
+  trayIcon.setContextMenu(contextTrayedMenu)
+  return trayIcon;
 }
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
@@ -92,17 +93,23 @@ app.on('activate', () => {
 
 
 function createWindow() {
+  let vs =`ic2s-net-version-${app.getVersion()}`;
+  console.log(vs)
   mainWindow = new BrowserWindow({
     title: 'ic2snet-intranet ',
     show: false,
     width: 800,
-    height: 600,
+    height: 300,
     webPreferences: {
       nodeIntegration: true,
-      webSecurity: false
+      webSecurity: false,
+      contextIsolation: false,
+      preload: path.join(__dirname, 'preload.js'),
+      additionalArguments: [vs.toString()]
     }
   })
 
+  mainWindow.webContents.openDevTools()
 
   mainWindow.on('close', function (event) {
     if (!app.isQuiting) {
