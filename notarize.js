@@ -1,7 +1,7 @@
+/*
 require('dotenv').config();
 const { notarize } = require('electron-notarize');
 
-return;
 
 exports.default = async function notarizing(context) {
   const { electronPlatformName, appOutDir } = context;  
@@ -18,4 +18,4 @@ exports.default = async function notarizing(context) {
     appleId: process.env.APPLEID,
     appleIdPassword: process.env.APPLEIDPASS,
   });
-};
+};*/
