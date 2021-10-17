@@ -32,11 +32,13 @@
       "sign": false
     },
     "mac": {
+      "type": "distribution",
       "category": "ICS2.net.Intranet.category",
       "icon": "mac-icon.icns",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
       "publish": [
         {
           "provider": "github",
