@@ -8,6 +8,7 @@ exports.default = async function notarizing(context) {
   }
 
   const appName = context.packager.appInfo.productFilename;
+  console.log(`output path is : ${appOutDir}/${appName}.app`)
 
   return await notarize({
     appBundleId: 'com.IC2SNET.Launcher',
