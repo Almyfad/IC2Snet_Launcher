@@ -34,8 +34,8 @@
     "mac": {
       "category": "ICS2.net.Intranet.category",
       "icon": "mac-icon.icns",
-      "entitlements": "./entitlements.mac.inherit.plist",
-      "entitlementsInherit": "./entitlements.mac.inherit.plist",
+      "entitlements": "entitlements.mac.inherit.plist",
+      "entitlementsInherit": "entitlements.mac.inherit.plist",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "publish": [
