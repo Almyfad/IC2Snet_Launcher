@@ -1,4 +1,3 @@
-/*
 require('dotenv').config();
 const { notarize } = require('electron-notarize');
 
@@ -8,7 +7,8 @@ exports.default = async function notarizing(context) {
   if (electronPlatformName !== 'darwin') {
     return;
   }
-
+  
+  /*
   const appName = context.packager.appInfo.productFilename;
   console.log(`output path is : ${appOutDir}/${appName}.app`)
 
