@@ -14,7 +14,7 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CSC_IDENTITY_AUTO_DISCOVERY: false
       APPLEID: lary.sene.apple@gmail.com
-      APPLEPASS : nopass
+      APPLEIDPASS : nopass
     steps:
     - uses: actions/checkout@master
       with:
