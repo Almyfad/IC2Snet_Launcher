@@ -4,7 +4,7 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 
 
-
+nativeTheme.themeSource = 'dark'
 let mainWindow = null;
 let trayIcon = null; //Prevent garbage collecter to make disapear icon
 
@@ -90,7 +90,7 @@ app.on('activate', () => {
 
 
 function createWindow() {
-  const menu = Menu.buildFromTemplate(exampleMenuTemplate());
+  const menu = Menu.buildFromTemplate([]);
   Menu.setApplicationMenu(menu);
 
   let vs = `ic2s-net-version-${app.getVersion()}`;
@@ -148,94 +148,3 @@ function show() {
 
 
 
-const exampleMenuTemplate = () => [
-  {
-    label: "Options",
-    submenu: [
-      {
-        label: "Quit",
-        click: () => app.quit()
-      },
-      {
-        label: "Radio1",
-        type: "radio",
-        checked: true
-      },
-      {
-        label: "Radio2",
-        type: "radio",
-      },
-      {
-        label: "Checkbox1",
-        type: "checkbox",
-        checked: true,
-        click: (item) => {
-          console.log("item is checked? " + item.checked);
-        }
-      },
-      {type: "separator"},
-      {
-        label: "Checkbox2",
-        type: "checkbox",
-        checked: false,
-        click: (item) => {
-          console.log("item is checked? " + item.checked);
-        }
-      },
-      {
-        label: "Radio Test",
-        submenu: [
-          {
-            label: "Sample Checkbox",
-            type: "checkbox",
-            checked: true
-          },
-          {
-            label: "Radio1",
-            checked: true,
-            type: "radio"
-          },
-          {
-            label: "Radio2",
-            type: "radio"
-          },
-          {
-            label: "Radio3",
-            type: "radio"
-          },
-          { type: "separator" },
-                      {
-            label: "Radio1",
-            checked: true,
-            type: "radio"
-          },
-          {
-            label: "Radio2",
-            type: "radio"
-          },
-          {
-            label: "Radio3",
-            type: "radio"
-          }
-        ]
-      },
-      {
-        label: "zoomIn",
-        role: "zoomIn"
-      },
-      {
-        label: "zoomOut",
-        role: "zoomOut"
-      },
-      {
-        label: "Radio1",
-        type: "radio"
-      },
-      {
-        label: "Radio2",
-        checked: true,
-        type: "radio"
-      },
-    ]
-  }
-];
