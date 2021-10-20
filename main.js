@@ -1,9 +1,8 @@
-const { app, BrowserWindow, Menu, Tray } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeTheme } = require('electron')
 const log = require("electron-log")
+const isDev = require('electron-is-dev');
 const path = require('path');
-const { autoUpdater } = require("electron-updater")
-autoUpdater.logger = log
-autoUpdater.checkForUpdatesAndNotify()
+
 
 
 let mainWindow = null;
@@ -32,7 +31,7 @@ if (!gotTheLock) {
 /*---------------------    TRAY    ------------------------*/
 /*---------------------------------------------------------*/
 let SetTray = () => {
-  trayIcon = new Tray(path.join(__dirname, 'icon16x16.png'))
+  trayIcon = new Tray(path.join(__dirname, 'assets/img/icon16x16.png'))
   const contextTrayedMenu = Menu.buildFromTemplate([
     {
       label: 'Ouvrir', click: show
@@ -52,13 +51,11 @@ let SetTray = () => {
 /*---------------------------------------------------------*/
 
 
-var menu = Menu.buildFromTemplate([])
-Menu.setApplicationMenu(menu);
 
 /*---------------------AUTO UPDATER------------------------*/
 /*---------------------------------------------------------*/
 
-require('./autoupdater')(app, log, () => mainWindow)
+require('./src/autoupdater')(app, log, () => mainWindow)
 
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
@@ -93,23 +90,27 @@ app.on('activate', () => {
 
 
 function createWindow() {
-  let vs =`ic2s-net-version-${app.getVersion()}`;
+  const menu = Menu.buildFromTemplate(exampleMenuTemplate());
+  Menu.setApplicationMenu(menu);
+
+  let vs = `ic2s-net-version-${app.getVersion()}`;
   console.log(vs)
   mainWindow = new BrowserWindow({
-    title: 'ic2snet-intranet ',
-    show: false,
+    title: 'ic2snet-intranet ' + vs.replace("ic2s-net-version-","v"),
+    show: isDev,
     width: 800,
     height: 300,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
       contextIsolation: false,
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'src/preload.js'),
       additionalArguments: [vs.toString()]
     }
   })
 
-  mainWindow.webContents.openDevTools()
+  if (isDev)
+    mainWindow.webContents.openDevTools()
 
   mainWindow.on('close', function (event) {
     if (!app.isQuiting) {
@@ -147,4 +148,94 @@ function show() {
 
 
 
-
+const exampleMenuTemplate = () => [
+  {
+    label: "Options",
+    submenu: [
+      {
+        label: "Quit",
+        click: () => app.quit()
+      },
+      {
+        label: "Radio1",
+        type: "radio",
+        checked: true
+      },
+      {
+        label: "Radio2",
+        type: "radio",
+      },
+      {
+        label: "Checkbox1",
+        type: "checkbox",
+        checked: true,
+        click: (item) => {
+          console.log("item is checked? " + item.checked);
+        }
+      },
+      {type: "separator"},
+      {
+        label: "Checkbox2",
+        type: "checkbox",
+        checked: false,
+        click: (item) => {
+          console.log("item is checked? " + item.checked);
+        }
+      },
+      {
+        label: "Radio Test",
+        submenu: [
+          {
+            label: "Sample Checkbox",
+            type: "checkbox",
+            checked: true
+          },
+          {
+            label: "Radio1",
+            checked: true,
+            type: "radio"
+          },
+          {
+            label: "Radio2",
+            type: "radio"
+          },
+          {
+            label: "Radio3",
+            type: "radio"
+          },
+          { type: "separator" },
+                      {
+            label: "Radio1",
+            checked: true,
+            type: "radio"
+          },
+          {
+            label: "Radio2",
+            type: "radio"
+          },
+          {
+            label: "Radio3",
+            type: "radio"
+          }
+        ]
+      },
+      {
+        label: "zoomIn",
+        role: "zoomIn"
+      },
+      {
+        label: "zoomOut",
+        role: "zoomOut"
+      },
+      {
+        label: "Radio1",
+        type: "radio"
+      },
+      {
+        label: "Radio2",
+        checked: true,
+        type: "radio"
+      },
+    ]
+  }
+];

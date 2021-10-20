@@ -38,6 +38,8 @@ module.exports = (app, log, GetmainWindow) => {
     isdownloading = false;
   })
 
+
+ 
   setInterval(() => {
     if (!isdownloading) {
       autoUpdater.checkForUpdates()
@@ -45,7 +47,5 @@ module.exports = (app, log, GetmainWindow) => {
       log.info('[setInterval-tick] Downloading...SKipping New Update Check');
     }
   }, 30 * 1000);
-
-
 
 };
