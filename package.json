@@ -1,13 +1,13 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.74.23",
+  "version": "0.74.24",
   "private": false,
   "main": "main.js",
   "author": "LS Development Service",
   "description": "IC2S.net intranet Launcher",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Almyfad/IC2Snet_Launcher.git"
+    "url": "git@github.com:Almyfad/IC2Snet_Launcher_release.git"
   },
   "scripts": {
     "start": "electron .",
