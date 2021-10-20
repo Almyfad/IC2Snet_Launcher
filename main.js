@@ -67,6 +67,7 @@ require('./src/autoupdater')(app, log, () => mainWindow)
 
 app.whenReady().then(() => {
   SetTray()
+  hide()
  /* createWindow()
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
