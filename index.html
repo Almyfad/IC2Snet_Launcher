@@ -2,20 +2,21 @@
 
 <head>
   <meta charset="UTF-8">
-  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <link rel="stylesheet" type="text/css" href="./src/styles.css">
 </head>
 
 <body>
-
-    <h1>IC2S.net Launcher V<span id="ic2sversion"></span></h1>
-    Nous utilisons Node.js <span id="node-version"></span>,
+  <canvas id="canvas" width="400" height="300"></canvas>
+  <h3>IC2S.net Launcher V<span id="ic2sversion"></span></h3>
+  <h3 class="blink_me">Coming Soon...</h3>
+  <a id="asystrayme" href="#" class="myButton">Systray Me</a>
+  <p></p>
+  <div>
+    Node.js <span id="node-version"></span>,
     Chromium <span id="chrome-version"></span>,
-    et Electron <span id="electron-version"></span>.
+    Electron <span id="electron-version"></span>
+  </div>
     <script src="./src/renderer.js"></script>
-
 </body>
 
 </html>

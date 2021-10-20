@@ -1,6 +1,6 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.74.22",
+  "version": "0.74.23",
   "private": false,
   "main": "main.js",
   "author": "LS Development Service",
@@ -19,7 +19,9 @@
     "electron-is-dev": "^2.0.0",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
-    "path": "^0.12.7"
+    "filereader": "^0.10.3",
+    "path": "^0.12.7",
+    "rive-js": "^0.7.31"
   },
   "devDependencies": {
     "electron": "^15.0.0",

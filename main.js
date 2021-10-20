@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, Tray, nativeTheme } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain } = require('electron')
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -96,14 +96,15 @@ function createWindow() {
   let vs = `ic2s-net-version-${app.getVersion()}`;
   console.log(vs)
   mainWindow = new BrowserWindow({
-    title: 'ic2snet-intranet ' + vs.replace("ic2s-net-version-","v"),
+    title: 'ic2snet-intranet ' + vs.replace("ic2s-net-version-", "v"),
     show: isDev,
+    frame:false,
+    transparent:true,
     width: 800,
-    height: 300,
+    height: 600,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
-      contextIsolation: false,
       preload: path.join(__dirname, 'src/preload.js'),
       additionalArguments: [vs.toString()]
     }
@@ -130,8 +131,8 @@ function hide() {
   if (mainWindow) {
     mainWindow.hide();
   }
-  /* if (!config.CurrentCTX.updating.get())
-     config.CurrentCTX.systray.set(true)*/
+
+  mainWindow = null;
 }
 
 function show() {
@@ -142,9 +143,12 @@ function show() {
   if (mainWindow.isMinimized()) mainWindow.restore()
   mainWindow.focus()
   mainWindow.show();
-  /* if (!config.CurrentCTX.updating.get())
-     config.CurrentCTX.systray.set(false)*/
 }
 
 
 
+/*--------------------------EVENT--------------------------*/
+/*---------------------------------------------------------*/
+/*---------------------------------------------------------*/
+/*---------------------------------------------------------*/
+ipcMain.handle('systray:me', () => {hide()});
