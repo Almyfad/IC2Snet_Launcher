@@ -1,12 +1,9 @@
-# name of your github action
 name: Build Deploy
-# this will help you specify where to run 
 on:
-  push:
+  pull_request:
     branches:
-    # this will run on the electron branch
       - main
-# this is where the magic happens, each job happens in parallel btw
+    types: [closed]
 jobs:
   build_on_mac:
     if: github.event.pull_request.merged == 'true'
