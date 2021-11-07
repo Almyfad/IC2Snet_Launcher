@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
-      CSC_IDENTITY_AUTO_DISCOVERY: false
+      CSC_IDENTITY_AUTO_DISCOVERY: true
       APPLEID: ${{ secrets.APPLEID }}
       APPLEIDPASS : ${{ secrets.APPLEIDPASS }}
       CSC_LINK : ${{ secrets.CSC_LINK }}
