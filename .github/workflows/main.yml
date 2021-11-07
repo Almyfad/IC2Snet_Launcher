@@ -6,7 +6,7 @@ on:
     types: [closed]
 jobs:
   build_on_mac:
-    if: github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged
     runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
@@ -27,7 +27,7 @@ jobs:
     - name: Build ON MacOs
       run: npm run publish
   build_on_win:
-    if: github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged
     runs-on: windows-2016
     env:
       GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
