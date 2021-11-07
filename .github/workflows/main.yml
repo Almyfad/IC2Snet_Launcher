@@ -9,6 +9,7 @@ on:
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   build_on_mac:
+    if: github.event.pull_request.merged == 'true'
     runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
@@ -27,6 +28,7 @@ jobs:
     - name: Build ON MacOs
       run: npm run publish
   build_on_win:
+    if: github.event.pull_request.merged == 'true'
     runs-on: windows-2016
     env:
       GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
