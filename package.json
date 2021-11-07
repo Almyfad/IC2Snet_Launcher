@@ -37,6 +37,8 @@
     },
     "mac": {
       "type": "distribution",
+      "hardenedRuntime":true,
+      "gatekeeperAssess": false,
       "category": "ICS2.net.Intranet.category",
       "icon": "mac-icon.icns",
       "entitlements": "./entitlements.mac.plist",
