@@ -28,7 +28,6 @@ module.exports = (app, log, GetmainWindow) => {
       setTimeout(() => {
         app.isQuiting = true;
         app.removeAllListeners("window-all-closed")
-        app.quit();
         autoUpdater.quitAndInstall(true, true);
       }, 500);
     } catch (e) {
