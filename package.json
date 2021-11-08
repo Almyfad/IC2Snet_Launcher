@@ -1,6 +1,6 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.77.0",
+  "version": "0.77.1",
   "private": true,
   "main": "main.js",
   "author": "LS Development Service",
