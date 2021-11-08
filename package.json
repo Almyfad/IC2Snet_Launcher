@@ -1,6 +1,6 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.77.1",
+  "version": "0.77.2",
   "private": true,
   "main": "main.js",
   "author": "LS Development Service",
@@ -12,7 +12,8 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
-    "publish": "electron-builder --publish always"
+    "publish": "electron-builder --publish always",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "auto-launch": "^5.0.5",
@@ -25,8 +26,8 @@
     "rive-js": "^0.7.31"
   },
   "devDependencies": {
-    "electron": "^15.0.0",
-    "electron-builder": "^22.11.7",
+    "electron": "^15.3.0",
+    "electron-builder": "^22.14.5",
     "electron-notarize": "^1.1.1"
   },
   "build": {
