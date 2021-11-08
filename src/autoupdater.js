@@ -1,6 +1,15 @@
-const { autoUpdater } = require("electron-updater");
+const { AppImageUpdater, MacUpdater, NsisUpdater } = require("electron-updater");
 
 module.exports = (app, log, GetmainWindow) => {
+  if (process.platform === "win32") {
+    autoUpdater = new NsisUpdater(options)
+  }
+  else if (process.platform === "darwin") {
+    autoUpdater = new MacUpdater(options)
+  }
+  else {
+    autoUpdater = new AppImageUpdater(options)
+  }
 
   let isdownloading = false;
   autoUpdater.logger = log;
@@ -39,11 +48,11 @@ module.exports = (app, log, GetmainWindow) => {
   })
 
 
- 
+
   setInterval(() => {
     if (!isdownloading) {
       autoUpdater.checkForUpdates()
-    }else {
+    } else {
       log.info('[setInterval-tick] Downloading...SKipping New Update Check');
     }
   }, 30 * 1000);
