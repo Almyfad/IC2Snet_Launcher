@@ -1,16 +1,6 @@
-const { AppImageUpdater, MacUpdater, NsisUpdater } = require("electron-updater");
+const { autoUpdater } = require("electron-updater");
 
 module.exports = (app, log, GetmainWindow) => {
-
-  if (process.platform === "win32") {
-    autoUpdater = new NsisUpdater()
-  }
-  else if (process.platform === "darwin") {
-    autoUpdater = new MacUpdater()
-  }
-  else {
-    autoUpdater = new AppImageUpdater()
-  }
 
   let isdownloading = false;
   autoUpdater.logger = log;
@@ -36,7 +26,7 @@ module.exports = (app, log, GetmainWindow) => {
     log.info('[update-downloaded]');
     try {
       setTimeout(() => {
-        autoUpdater.quitAndInstall(true, true);        
+        autoUpdater.quitAndInstall(true, true);
       }, 500);
     } catch (e) {
       log.error('Error Failed to install updates' + JSON.stringify(e));
