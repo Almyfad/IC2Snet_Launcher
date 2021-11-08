@@ -1,4 +1,5 @@
 const { autoUpdater } = require("electron-updater");
+
 module.exports = (app, log, GetmainWindow) => {
 
   let isdownloading = false;
@@ -23,13 +24,16 @@ module.exports = (app, log, GetmainWindow) => {
 
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     log.info('[update-downloaded]');
-/*    try {
+    try {
       setTimeout(() => {
+        app.isQuiting = true;
+        app.removeAllListeners("window-all-closed")
+        app.quit();
         autoUpdater.quitAndInstall(true, true);
       }, 500);
     } catch (e) {
       log.error('Error Failed to install updates' + JSON.stringify(e));
-    }*/
+    }
     isdownloading = false;
   })
 
@@ -41,7 +45,7 @@ module.exports = (app, log, GetmainWindow) => {
 
   checkForUpdates = () => {
     if (!isdownloading) {
-      autoUpdater.checkForUpdatesAndNotify()
+      autoUpdater.checkForUpdates()
     } else {
       log.info('[setInterval-tick] Downloading...SKipping New Update Check');
     }
