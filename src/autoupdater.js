@@ -35,7 +35,9 @@ module.exports = (app, log, GetmainWindow) => {
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     log.info('[update-downloaded]');
     try {
-      autoUpdater.quitAndInstall(true, true);
+      setTimeout(() => {
+        autoUpdater.quitAndInstall(true, true);        
+      }, 500);
     } catch (e) {
       log.error('Error Failed to install updates' + JSON.stringify(e));
     }
