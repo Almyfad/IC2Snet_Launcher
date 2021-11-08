@@ -1,5 +1,4 @@
 const { autoUpdater } = require("electron-updater");
-require("autoUpdater");
 module.exports = (app, log, GetmainWindow) => {
 
   let isdownloading = false;
