@@ -35,7 +35,7 @@ module.exports = (app, log, GetmainWindow) => {
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     log.info('[update-downloaded]');
     try {
-      autoUpdater.quitAndInstall(true, true);
+      autoUpdater.nativeUpdater.quitAndInstall(true, true);
     } catch (e) {
       log.error('Error Failed to install updates' + JSON.stringify(e));
     }
@@ -58,6 +58,6 @@ module.exports = (app, log, GetmainWindow) => {
   checkForUpdates()
   setInterval(() => {
     checkForUpdates()
-  }, 5 * 60 * 1000);
+  }, 60 * 1000);
 
 };
