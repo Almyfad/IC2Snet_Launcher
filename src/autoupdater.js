@@ -1,5 +1,4 @@
-//const { autoUpdater } = require("autoUpdater");
-const autoUpdater = require('electron').autoUpdater;
+const { autoUpdater } = require("autoUpdater");
 require("autoUpdater");
 module.exports = (app, log, GetmainWindow) => {
 
