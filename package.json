@@ -1,6 +1,6 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.76.1",
+  "version": "0.76.2",
   "private": true,
   "main": "main.js",
   "author": "LS Development Service",
@@ -36,6 +36,7 @@
       "sign": false
     },
     "mac": {
+      "target":["zip"],
       "type": "distribution",
       "hardenedRuntime":true,
       "gatekeeperAssess": false,
