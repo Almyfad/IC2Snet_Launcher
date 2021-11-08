@@ -1,6 +1,6 @@
 {
   "name": "ic2snet-launcher",
-  "version": "0.76.7",
+  "version": "0.76.8",
   "private": true,
   "main": "main.js",
   "author": "LS Development Service",
@@ -48,7 +48,7 @@
         {
           "provider": "github",
           "owner": "Almyfad",
-          "repo": "IC2Snet_Launcher_release"
+          "repo": "IC2Snet_Launcher"
         }
       ]
     },
@@ -58,7 +58,7 @@
         {
           "provider": "github",
           "owner": "Almyfad",
-          "repo": "IC2Snet_Launcher_release"
+          "repo": "IC2Snet_Launcher"
         }
       ]
     }

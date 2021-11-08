@@ -19,7 +19,7 @@ module.exports = (app, log, GetmainWindow) => {
   autoUpdater.setFeedURL({
     provider: "github",
     owner: "Almyfad",
-    repo: "IC2Snet_Launcher_release",
+    repo: "IC2Snet_Launcher",
     //token: t.value
   })
 
