@@ -1,14 +1,15 @@
 const { AppImageUpdater, MacUpdater, NsisUpdater } = require("electron-updater");
 
 module.exports = (app, log, GetmainWindow) => {
+
   if (process.platform === "win32") {
-    autoUpdater = new NsisUpdater(options)
+    autoUpdater = new NsisUpdater()
   }
   else if (process.platform === "darwin") {
-    autoUpdater = new MacUpdater(options)
+    autoUpdater = new MacUpdater()
   }
   else {
-    autoUpdater = new AppImageUpdater(options)
+    autoUpdater = new AppImageUpdater()
   }
 
   let isdownloading = false;
