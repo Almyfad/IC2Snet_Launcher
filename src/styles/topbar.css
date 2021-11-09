@@ -1,0 +1,48 @@
+#topbar {
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    background-color: #f39200;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 33px;
+}
+
+.rightmenu {
+    -webkit-app-region: none;
+}
+
+#minimizeAppBtn {
+    width: 24px;
+    height: 24px;
+    background-image: url(../images/minus.png);
+    background-color: transparent;
+    background-size: 24px 24px;
+    border: none;
+}
+#maxResAppBtn {
+    width: 24px;
+    height: 24px;
+    background-image: url(../images/cancel.png);
+    background-size: 24px 24px;
+    background-color: transparent;
+    border: none;
+}
+#CloseAppBtn {
+    width: 24px;
+    height: 24px;
+    background-image: url(../images/stop.png);
+    background-size: 24px 24px;
+    background-color: transparent;
+    border: none;
+}
+
+.Appcontents {
+    margin-top: 50px;
+}

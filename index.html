@@ -2,21 +2,40 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./src/styles.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/topbar.css">
 </head>
 
 <body>
-  <canvas id="canvas" width="400" height="300"></canvas>
-  <h3>IC2S.net Launcher V<span id="ic2sversion"></span></h3>
-  <h3 class="blink_me">Coming Soon...</h3>
-  <a id="asystrayme" href="#" class="myButton">Systray Me</a>
-  <p></p>
-  <div>
-    Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    Electron <span id="electron-version"></span>
+  <div class="mainApp">
+    <div id="topbar">
+      <div class="lefmenu"></div>
+      <div class="center">
+        <div class="title">
+          <h3>IC2S.net Launcher V<span id="ic2sversion"></span></h3>
+        </div>
+      </div>
+      <div class="rightmenu">
+        <button id="minimizeAppBtn"></button>
+        <button id="maxResAppBtn"></button>
+        <button id="CloseAppBtn"></button>
+      </div>
+
+    </div>
+    <div class="Appcontents">
+
+      <canvas id="canvas" width="400" height="300"></canvas>
+      <h3 class="blink_me">Coming Soon...</h3>
+      <a id="asystrayme" href="#" class="myButton">Systray Me</a>
+      <p></p>
+      <div>
+        Node.js <span id="node-version"></span>,
+        Chromium <span id="chrome-version"></span>,
+        Electron <span id="electron-version"></span>
+      </div>
+    </div>
   </div>
-    <script src="./src/renderer.js"></script>
+  <script src="./src/renderer.js"></script>
 </body>
 
 </html>

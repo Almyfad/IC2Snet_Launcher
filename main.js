@@ -75,10 +75,10 @@ require('./src/autolaunch')(app);
 app.whenReady().then(() => {
   SetTray()
   hide()
- /* createWindow()
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })*/
+  /* createWindow()
+   app.on('activate', function () {
+     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+   })*/
 })
 
 
@@ -102,14 +102,15 @@ function createWindow() {
   Menu.setApplicationMenu(menu);
 
   let vs = `ic2s-net-version-${app.getVersion()}`;
-  console.log(vs)
   mainWindow = new BrowserWindow({
     title: 'ic2snet-intranet ' + vs.replace("ic2s-net-version-", "v"),
     show: isDev,
-    frame:false,
-    transparent:true,
-    width: 800,
-    height: 600,
+    frame: false,
+    //transparent: true,
+    //  maxWidth: 1920,
+    //maxheight: 720,
+    minHeight: 600,
+    minWidth: 800,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
@@ -159,4 +160,20 @@ function show() {
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
-ipcMain.handle('systray:me', () => {hide()});
+ipcMain.handle('systray:me', () => { hide() });
+ipcMain.handle('topbarmenu:close', () => { hide() });
+
+ipcMain.handle('topbarmenu:min', () => {
+  mainWindow.minimize()
+});
+ipcMain.handle('topbarmenu:max', () => {
+  if (mainWindow.isMaximized()) {
+    mainWindow.restore()
+  } else {
+    mainWindow.maximize()
+  }
+});
+
+
+
+
