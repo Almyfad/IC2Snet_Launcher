@@ -54,7 +54,7 @@
       ]
     },
     "win": {
-      "icon": "assets/img/win-icon.png",
+      "icon": "win-icon.png",
       "publish": [
         {
           "provider": "github",

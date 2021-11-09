@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain,shell } = require('electron')
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -35,6 +35,9 @@ let SetTray = () => {
   const contextTrayedMenu = Menu.buildFromTemplate([
     {
       label: 'Ouvrir', click: show
+    },
+    {
+      label:'Fichier de log' , click:() => shell.openPath(log.transports.file.getFile().path)
     },
     {
       label: 'Quitter', click: function () {
@@ -173,7 +176,5 @@ ipcMain.handle('topbarmenu:max', () => {
     mainWindow.maximize()
   }
 });
-
-
 
 
