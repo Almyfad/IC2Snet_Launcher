@@ -1,7 +1,7 @@
-import firebase from 'firebase/compat/app';
-import firestore from 'firebase/compat/firestore';
-import auth from 'firebase/compat/auth';
-import functions from 'firebase/compat/functions'
+var firebase = require('firebase/compat/app')
+var firestore = require('firebase/compat/firestore')
+var auth = require('firebase/compat/auth')
+var functions = require('firebase/compat/functions')
 
 const firebaseConfig = {
     apiKey: "AIzaSyCrYSDvzkdufz9t0LSI9ObRzhO5ael5FY0",
@@ -19,9 +19,9 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const fireauth = firebase.auth();
 const firefunctions = firebase.functions()
-if(process.env.NODE_ENV ==="development") {
+/*if(process.env.NODE_ENV ==="development") {
     console.log("fireme fire you to Dev")
     firefunctions.useEmulator("localhost",5000)
     
-}
-export {db, fireauth,firefunctions };
+}*/
+module.exports = {db, fireauth,firefunctions };
