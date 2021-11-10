@@ -1,35 +1,39 @@
 var net = require('net');
 var CryptoJS = require("crypto-js");
-const {Firestore} = require('@google-cloud/firestore');
+const { Firestore } = require('@google-cloud/firestore');
+console.log(process.env.GCLOUD_PROJECT)
+console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 const firestore = new Firestore();
 
 
 async function quickstart() {
     // Obtain a document reference.
     const document = firestore.doc('posts/intro-to-firestore');
-  
+
     // Enter new data into the document.
     await document.set({
-      title: 'Welcome to Firestore',
-      body: 'Hello World',
+        title: 'Welcome to Firestore',
+        body: 'Hello World',
     });
     console.log('Entered new data into the document');
-  
+
     // Update an existing document.
-    await document.update({
-      body: 'My first Firestore app',
-    });
-    console.log('Updated an existing document');
-  
+    /*  await document.update({
+          body: 'My first Firestore app',
+      });
+      console.log('Updated an existing document');
+  */
     // Read the document.
+    /* 
     const doc = await document.get();
-    console.log('Read the document');
-  
+     console.log('Read the document');
+     */
+
     // Delete the document.
-    await document.delete();
-    console.log('Deleted the document');
-  }
-  quickstart();
+    /*  varawait document.delete();
+     console.log('Deleted the document');*/
+}
+quickstart();
 
 
 const PORT = 2222
@@ -129,7 +133,7 @@ server.on('connection', function (socket) {
         await docRef.set(deviceid)
     }
 
-    const online =async  () => {
+    const online = async () => {
         console.log("Did is online", deviceid)
         const docRef = db.collection('online').doc(deviceid.id)
         await docRef.set(deviceid)
