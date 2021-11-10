@@ -124,13 +124,13 @@ server.on('connection', function (socket) {
     const offline = async () => {
         console.log("Did is deconnected", deviceid)
         deviceid.online = false;
-        const document = firestore.collection('online').doc(deviceid);
+        const document = firestore.collection('online').doc(deviceid.id);
         await document.set(deviceid);
     }
 
     const online = async () => {
         console.log("Did is online", deviceid)
-        const document = firestore.collection('online').doc(deviceid);
+        const document = firestore.collection('online').doc(deviceid.id);
         await document.set(deviceid);
      
     }
