@@ -92,11 +92,11 @@ server.on('connection', function (socket) {
     }, KILL_SOCKET_TIME);
 
     const offline = () => {
-        consol.log("Did is deconnected", deviceid)
+        console.log("Did is deconnected", deviceid)
     }
 
     const online = () => {
-        consol.log("Did is online", deviceid)
+        console.log("Did is online", deviceid)
     }
 });
 
