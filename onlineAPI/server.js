@@ -11,11 +11,6 @@ async function quickstart() {
     const document = firestore.collection('online').doc("test");
 
     // Enter new data into the document.
-    await document.set({
-        title: 'Welcome to Firestore',
-        body: 'Hello World',
-    });
-    console.log('Entered new data into the document');
 
     // Update an existing document.
     /*  await document.update({
@@ -33,7 +28,7 @@ async function quickstart() {
     /*  varawait document.delete();
      console.log('Deleted the document');*/
 }
-quickstart();
+
 
 
 const PORT = 2222
@@ -129,14 +124,15 @@ server.on('connection', function (socket) {
     const offline = async () => {
         console.log("Did is deconnected", deviceid)
         deviceid.online = false;
-        const docRef = db.collection('online').doc(deviceid.id)
-        await docRef.set(deviceid)
+        const document = firestore.collection('online').doc(deviceid);
+        await document.set(deviceid);
     }
 
     const online = async () => {
         console.log("Did is online", deviceid)
-        const docRef = db.collection('online').doc(deviceid.id)
-        await docRef.set(deviceid)
+        const document = firestore.collection('online').doc(deviceid);
+        await document.set(deviceid);
+     
     }
 });
 
