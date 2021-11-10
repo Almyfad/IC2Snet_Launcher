@@ -1,5 +1,36 @@
 var net = require('net');
 var CryptoJS = require("crypto-js");
+const {Firestore} = require('@google-cloud/firestore');
+const firestore = new Firestore();
+
+
+async function quickstart() {
+    // Obtain a document reference.
+    const document = firestore.doc('posts/intro-to-firestore');
+  
+    // Enter new data into the document.
+    await document.set({
+      title: 'Welcome to Firestore',
+      body: 'Hello World',
+    });
+    console.log('Entered new data into the document');
+  
+    // Update an existing document.
+    await document.update({
+      body: 'My first Firestore app',
+    });
+    console.log('Updated an existing document');
+  
+    // Read the document.
+    const doc = await document.get();
+    console.log('Read the document');
+  
+    // Delete the document.
+    await document.delete();
+    console.log('Deleted the document');
+  }
+  quickstart();
+
 
 const PORT = 2222
 const MAXCONNECTIONS = 150
@@ -91,12 +122,17 @@ server.on('connection', function (socket) {
         socket.destroy();
     }, KILL_SOCKET_TIME);
 
-    const offline = () => {
+    const offline = async () => {
         console.log("Did is deconnected", deviceid)
+        deviceid.online = false;
+        const docRef = db.collection('online').doc(deviceid.id)
+        await docRef.set(deviceid)
     }
 
-    const online = () => {
+    const online =async  () => {
         console.log("Did is online", deviceid)
+        const docRef = db.collection('online').doc(deviceid.id)
+        await docRef.set(deviceid)
     }
 });
 

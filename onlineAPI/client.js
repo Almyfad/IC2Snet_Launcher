@@ -17,7 +17,7 @@ Array(100).fill("0").forEach((x, i) => {
 
     client.on('connect', function () {
         console.log('Client ' + i + ': connection established with server');
-        var message = { id: "456464654" + i }
+        var message = { id: "456464654" + i, online: true };
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(message), SECRET).toString();
         client.write(ciphertext);
 
