@@ -16,19 +16,18 @@ Array(100).fill("0").forEach((x, i) => {
     client.connect(Option);
 
     client.on('connect', function () {
-        console.log('Client ' + i +': connection established with server');
-
-        var message = { id: "456464654", status: 464564, test: i }
+        console.log('Client ' + i + ': connection established with server');
+        var message = { id: "456464654" + i }
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(message), SECRET).toString();
         client.write(ciphertext);
 
 
-    /*    setInterval(() => {
-            var message = { id: "456464654", status: "messagetest", test: i }
-            var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(message), SECRET).toString();
-            client.write(ciphertext);  
-        }, Math.floor(Math.random() * 5000+1000));
-*/
+        /*    setInterval(() => {
+                var message = { id: "456464654", status: "messagetest", test: i }
+                var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(message), SECRET).toString();
+                client.write(ciphertext);  
+            }, Math.floor(Math.random() * 5000+1000));
+    */
     });
 
     client.setEncoding('utf8');
