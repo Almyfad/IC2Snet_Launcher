@@ -1,14 +1,14 @@
-const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain,shell } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell } = require('electron')
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
-const {db} = require('./firebase-config');
+const { db } = require('./firebase-config');
 
 
 const onlinestream = (callback) => db.collection("online").onSnapshot(snap => {
   const data = snap.docs.map(doc => doc.data())
   if (callback)
-      callback(data)
+    callback(data)
 })
 
 nativeTheme.themeSource = 'dark'
@@ -44,7 +44,7 @@ let SetTray = () => {
       label: 'Ouvrir', click: show
     },
     {
-      label:'Fichier de log' , click:() => shell.openPath(log.transports.file.getFile().path)
+      label: 'Fichier de log', click: () => shell.openPath(log.transports.file.getFile().path)
     },
     {
       label: 'Quitter', click: function () {
@@ -65,7 +65,7 @@ let SetTray = () => {
 /*---------------------AUTO UPDATER------------------------*/
 /*---------------------------------------------------------*/
 
-require('./src/autoupdater')(app, log, () => mainWindow)
+require('./modules/autoupdater')(app, log, () => mainWindow)
 
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
@@ -74,7 +74,7 @@ require('./src/autoupdater')(app, log, () => mainWindow)
 /*---------------------AUTO LAUNCH------------------------*/
 /*---------------------------------------------------------*/
 
-require('./src/autolaunch')(app);
+require('./modules/autolaunch')(app);
 
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
@@ -84,7 +84,10 @@ require('./src/autolaunch')(app);
 
 app.whenReady().then(() => {
   SetTray()
-  hide()
+  if (isDev)
+    show()
+  else
+    hide()
   /* createWindow()
    app.on('activate', function () {
      if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -116,21 +119,18 @@ function createWindow() {
     title: 'ic2snet-intranet ' + vs.replace("ic2s-net-version-", "v"),
     show: isDev,
     frame: false,
-    //transparent: true,
-    //  maxWidth: 1920,
-    //maxheight: 720,
     minHeight: 600,
     minWidth: 800,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false,
-      preload: path.join(__dirname, 'src/preload.js'),
+      preload: path.join(__dirname, '/preload.js'),
       additionalArguments: [vs.toString()]
     }
   })
 
   if (isDev)
-    mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools({ mode: 'detach' })
 
   mainWindow.on('close', function (event) {
     if (!app.isQuiting) {
@@ -140,7 +140,9 @@ function createWindow() {
     return false;
   });
 
-  mainWindow.loadFile('index.html')
+  mainWindow.loadURL(isDev
+    ? 'http://localhost:3000'
+    : `file://${path.join(__dirname, '../build/index.html')}`)
 }
 
 

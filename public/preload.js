@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const rive = require('rive-js')
+
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
         const element = document.getElementById(selector)
@@ -12,17 +12,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-
-contextBridge.exposeInMainWorld('rive', {
-    appstart: (canvas) =>
-        new rive.Rive({
-            src: __dirname + "/../assets/appstart.riv",
-            canvas: document.getElementById(canvas),
-            autoplay: true,
-        })
-
-})
 
 contextBridge.exposeInMainWorld('systray', {
     me: () => ipcRenderer.invoke('systray:me'),
