@@ -1,0 +1,17 @@
+.datatable {
+    width: 95%;
+    font-size: 15px;
+    transform: scale(0.9);
+}
+
+.circletrue:before {
+    content: " \25CF";
+    font-size: 25px;
+    color :rgb(42, 230, 4)
+}
+
+.circlefalse:before {
+    content: " \25CF";
+    font-size: 25px;
+    color: rgb(207, 19, 19)
+}

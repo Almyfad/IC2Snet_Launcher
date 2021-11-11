@@ -2,14 +2,12 @@ const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell } = require(
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
-const { db } = require('./firebase-config');
 
 
-const onlinestream = (callback) => db.collection("online").onSnapshot(snap => {
-  const data = snap.docs.map(doc => doc.data())
-  if (callback)
-    callback(data)
-})
+
+
+
+
 
 nativeTheme.themeSource = 'dark'
 let mainWindow = null;
@@ -172,6 +170,7 @@ function show() {
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
+
 ipcMain.handle('systray:me', () => { hide() });
 ipcMain.handle('topbarmenu:close', () => { hide() });
 

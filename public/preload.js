@@ -13,10 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-contextBridge.exposeInMainWorld('systray', {
-    me: () => ipcRenderer.invoke('systray:me'),
-})
-
 contextBridge.exposeInMainWorld('topbarmenu', {
     close: () => ipcRenderer.invoke('topbarmenu:close'),
     min: () => ipcRenderer.invoke('topbarmenu:min'),
