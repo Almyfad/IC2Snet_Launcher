@@ -1,6 +1,6 @@
 {
   "name": "ic2snet_launcher",
-  "version": "0.81.1",
+  "version": "0.81.2",
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
@@ -26,7 +26,6 @@
     "firebase": "^9.4.0",
     "path": "^0.12.7",
     "dotenv": "^10.0.0"
-
   },
   "scripts": {
     "start": "react-scripts start",
