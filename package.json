@@ -12,6 +12,7 @@
     "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
     "electron-log": "^4.4.1",
+    "electron-notarize": "^1.1.1",
     "material-table": "^1.69.3",
     "node-machine-id": "^1.1.12",
     "react": "^17.0.2",
@@ -62,7 +63,8 @@
     "firebase": "^9.4.0",
     "path": "^0.12.7",
     "wait-on": "^6.0.0"
-  },  "build": {
+  },
+  "build": {
     "appId": "ic2s.net.intranet-launcher",
     "afterSign": "notarize.js",
     "dmg": {
