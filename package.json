@@ -1,6 +1,6 @@
 {
   "name": "ic2snet_launcher",
-  "version": "0.80.91",
+  "version": "0.80.92",
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
+    "electron-builder": "^22.13.1",
     "electron-log": "^4.4.1",
     "material-table": "^1.69.3",
     "node-machine-id": "^1.1.12",
