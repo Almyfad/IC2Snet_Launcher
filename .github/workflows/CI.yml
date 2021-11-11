@@ -25,7 +25,7 @@ jobs:
     - name: Install Yarn
       run: npm install -g yarn
     - name: Install dependencies from yarn
-      run: yarn install
+      run: yarn install --network-timeout 1000000
     - name: Build ON MacOs
       run: yarn dist
   build_on_win:
@@ -43,6 +43,6 @@ jobs:
     - name: Install Yarn
       run: npm install -g yarn
     - name: Install dependencies from yarn
-      run: yarn install
+      run: yarn install --network-timeout 1000000
     - name: Build On win
       run: yarn dist
