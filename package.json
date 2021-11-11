@@ -1,6 +1,6 @@
 {
   "name": "ic2snet_launcher",
-  "version": "0.80.93",
+  "version": "0.80.100",
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
