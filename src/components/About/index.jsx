@@ -15,3 +15,5 @@ const About = () => <div className="About">
     </div>
 </div>
 export default About;
+
+//<Rive src="assets/appstart.riv" layout={new Layout({ fit: 'fitWidth', alignment: 'center' })} />
