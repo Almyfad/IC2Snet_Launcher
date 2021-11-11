@@ -40,7 +40,9 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 16.10
+    - name: Install Yarn
+      run: npm install -g yarn
     - name: Install dependencies
-      run: npm install
-    - name: Build ON WinDows
-      run: npm run publish
+      run: yarn install
+    - name: Build ON MacOs
+      run: yarn run publish
