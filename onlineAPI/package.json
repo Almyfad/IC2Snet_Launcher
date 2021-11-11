@@ -1,0 +1,19 @@
+{
+  "name": "onlineapi",
+  "version": "1.0.0",
+  "description": "online api tcp/tunnel",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ic2snet-launcher"
+  },
+  "author": "LS Development Service",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/firestore": "^4.15.1",
+    "crypto-js": "^4.1.1"
+  }
+}

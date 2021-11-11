@@ -1,0 +1,35 @@
+
+
+#minimizeAppBtn {
+  width: 12px;
+  height: 12px;
+  background-image: url(./images/minus.png);
+  background-color: transparent;
+  background-size: 12px 12px;
+  border: none;
+  margin:6px
+}
+#maxResAppBtn {
+  width: 12px;
+  height: 12px;
+  background-image: url(./images/stop.png);
+  background-size: 12px 12px;
+  background-color: transparent;
+  border: none;
+  margin:6px
+}
+#CloseAppBtn {
+  width: 12px;
+  height: 12px;
+  background-image: url(./images/cancel.png);
+  background-size: 12px 12px;
+  background-color: transparent;
+  border: none;
+  margin:6px
+}
+
+#Appcontents {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}

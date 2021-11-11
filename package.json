@@ -1,67 +1,64 @@
 {
-  "name": "ic2snet-launcher",
-  "version": "0.80.0",
+  "name": "ic2snet_launcher",
+  "version": "0.80.90",
   "private": true,
-  "main": "main.js",
-  "author": "LS Development Service",
-  "description": "IC2S.net intranet Launcher",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Almyfad/IC2Snet_Launcher.git"
+  "main": "public/electron.js",
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "cross-env": "^7.0.3",
+    "crypto-js": "^4.1.1",
+    "electron-log": "^4.4.1",
+    "material-table": "^1.69.3",
+    "node-machine-id": "^1.1.12",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "rive-react": "0.0.23",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder",
-    "publish": "electron-builder --publish always",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "dist": "react-scripts build && electron-builder --publish always",
     "postinstall": "electron-builder install-app-deps"
   },
-  "dependencies": {
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
     "auto-launch": "^5.0.5",
+    "concurrently": "^6.3.0",
     "dotenv": "^10.0.0",
+    "electron": "^15.3.1",
     "electron-is-dev": "^2.0.0",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.6.1",
     "filereader": "^0.10.3",
+    "firebase": "^9.4.0",
     "path": "^0.12.7",
-    "rive-js": "^0.7.31"
-  },
-  "devDependencies": {
-    "electron": "^15.3.0",
-    "electron-builder": "^22.14.5",
-    "electron-notarize": "^1.1.1"
-  },
-  "build": {
-    "appId": "ic2s.net.intranet-launcher",
-    "afterSign": "notarize.js",
-    "dmg": {
-      "sign": false
-    },
-    "mac": {
-      "target":["zip"],
-      "type": "distribution",
-      "hardenedRuntime":true,
-      "gatekeeperAssess": false,
-      "category": "ICS2.net.Intranet.category",
-      "icon": "mac-icon.icns",
-      "entitlements": "./entitlements.mac.plist",
-      "entitlementsInherit": "./entitlements.mac.plist",
-      "publish": [
-        {
-          "provider": "github",
-          "owner": "Almyfad",
-          "repo": "IC2Snet_Launcher_release"
-        }
-      ]
-    },
-    "win": {
-      "icon": "win-icon.png",
-      "publish": [
-        {
-          "provider": "github",
-          "owner": "Almyfad",
-          "repo": "IC2Snet_Launcher_release"
-        }
-      ]
-    }
+    "wait-on": "^6.0.0"
   }
 }
