@@ -55,11 +55,13 @@ const Online = () => {
                 icons={tableIcons}
                 columns={[
                     { title: "status", field: "online", render: rowData => <span className={"circle" + rowData.online}></span> },
-                    { title: "Device id", field: "id" },
+                    { title: "user", field: "username" },
+                    { title: "platform", field: "platform" },
+                    { title: "hostname", field: "hostname" },
+                    { title: "Version", field: "getVersion" },
                 ]}
                 data={data}
                 title="Device Liste"
-                //
                 options={{ paging: true, pageSize: 10, }}
             />
         </div>
