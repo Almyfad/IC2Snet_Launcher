@@ -62,5 +62,40 @@
     "firebase": "^9.4.0",
     "path": "^0.12.7",
     "wait-on": "^6.0.0"
+  },  "build": {
+    "appId": "ic2s.net.intranet-launcher",
+    "afterSign": "notarize.js",
+    "dmg": {
+      "sign": false
+    },
+    "mac": {
+      "target": [
+        "zip"
+      ],
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "category": "ICS2.net.Intranet.category",
+      "icon": "mac-icon.icns",
+      "entitlements": "./entitlements.mac.plist",
+      "entitlementsInherit": "./entitlements.mac.plist",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "Almyfad",
+          "repo": "IC2Snet_Launcher_release"
+        }
+      ]
+    },
+    "win": {
+      "icon": "win-icon.png",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "Almyfad",
+          "repo": "IC2Snet_Launcher_release"
+        }
+      ]
+    }
   }
 }
