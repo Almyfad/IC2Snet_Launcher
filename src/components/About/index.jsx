@@ -1,5 +1,5 @@
 import './style.css';
-import Rive, { Layout } from 'rive-react';
+import Rive from 'rive-react';
 import Online from '../Online';
 const About = () => <div className="About">
     <div className="r1">

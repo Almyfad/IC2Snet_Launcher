@@ -1,8 +1,8 @@
 import firebase from 'firebase/compat/app';
-import firestore from 'firebase/compat/firestore';
-import auth from 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+/*import auth from 'firebase/compat/auth';
 import functions from 'firebase/compat/functions'
-
+*/
 //var firebase = require('firebase/compat/app/')
 //var firestore = require('firebase/compat/firestore')
 //var auth = require('firebase/compat/auth')
@@ -19,8 +19,9 @@ const firebaseConfig = {
 };
 
 
+
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 /*
 const fireauth = firebase.auth();
