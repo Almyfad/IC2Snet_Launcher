@@ -1,6 +1,6 @@
 {
   "name": "ic2snet_launcher",
-  "version": "0.80.150",
+  "version": "0.81.0",
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
@@ -27,6 +27,7 @@
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron": "wait-on tcp:3000 && electron .",
+    "electron-build": "react-scripts build && electron-builder",
     "dist": "react-scripts build && electron-builder --publish always",
     "postinstall": "electron-builder install-app-deps"
   },

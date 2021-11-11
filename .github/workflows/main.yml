@@ -24,8 +24,6 @@ jobs:
         node-version: 16.10
     - name: Install Yarn
       run: npm install -g yarn
-    - name: Install dependencies from npm
-      run: npm i
     - name: Install dependencies from yarn
       run: yarn install
     - name: Build ON MacOs
@@ -44,8 +42,6 @@ jobs:
         node-version: 16.10
     - name: Install Yarn
       run: npm install -g yarn
-    - name: Install dependencies from npm
-      run: npm i
     - name: Install dependencies from yarn
       run: yarn install
     - name: Build On win
