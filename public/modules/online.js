@@ -25,7 +25,6 @@ module.exports = (app, log) => {
         username: process.env.username,
         getVersion: app.getVersion(),
         online: true,
-        connectedAd : new Date(),
     };
 
     var client = new net.Socket();
