@@ -8,8 +8,10 @@ module.exports = (app, log, GetmainWindow) => {
     "76c86dda3eaa1eff2a71b1b2b3eadd1e9bc9baa10984681cbf96fb4c0e465bd0",
     "b6c83609a09238b183b08a6a3d4fdd5acefbbef9beb6b0e8e45e4577a6897fe0"
   ]
-  if (PrereleaseDevices.includes(id))
+  if (PrereleaseDevices.includes(id)) {
     autoUpdater.allowPrerelease = true;
+    log.info("[AutoUpdate]allowPrerelease")
+  }
   let isdownloading = false;
   autoUpdater.logger = log;
 

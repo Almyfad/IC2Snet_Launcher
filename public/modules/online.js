@@ -27,14 +27,13 @@ module.exports = (app, log) => {
         online: true,
         connectedAd : new Date(),
     };
-    console.log(message)
 
     var client = new net.Socket();
 
     client.connect(Option);
 
     client.on('connect', function () {
-        log('online:Client ' + id + ': connection established with server');
+        log.info('online:Client ' + id + ': connection established with server');
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(message), SECRET).toString();
         client.write(ciphertext);
     });
@@ -42,15 +41,15 @@ module.exports = (app, log) => {
     client.setEncoding('utf8');
 
     client.on('data', function (data) {
-        log("online:receveing data")
+        log.info("online:receveing data")
     });
 
     client.on('error', function (err) {
-        console.log('online:Socket error reconecting');
+        log.info('online:Socket error reconecting');
     })
 
     client.on('end', function (data) {
-        console.log('online:Socket ended from other end!');
+        log.info('online:Socket ended from other end!');
     });
 
 
@@ -58,7 +57,7 @@ module.exports = (app, log) => {
         if (client.pending && !client.connecting) {
             client.connect(Option);
         } else {
-            console.log("online:reconect")
+            log.info("online:reconect")
         }
     }, 5000)
 };
