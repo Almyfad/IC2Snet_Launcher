@@ -30,7 +30,7 @@ module.exports = (app, log) => {
     var client = new net.Socket();
 
     client.connect(Option);
-
+    client.setKeepAlive(true, 300000) //Toutes les 5min
     client.on('connect', function () {
         log.info('online:Client ' + id + ': connection established with server');
         var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(message), SECRET).toString();
