@@ -6,31 +6,6 @@ console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 const firestore = new Firestore();
 
 
-async function quickstart() {
-    // Obtain a document reference.
-    const document = firestore.collection('online').doc("test");
-
-    // Enter new data into the document.
-
-    // Update an existing document.
-    /*  await document.update({
-          body: 'My first Firestore app',
-      });
-      console.log('Updated an existing document');
-  */
-    // Read the document.
-    /* 
-    const doc = await document.get();
-     console.log('Read the document');
-     */
-
-    // Delete the document.
-    /*  varawait document.delete();
-     console.log('Deleted the document');*/
-}
-
-
-
 const PORT = 2222
 const MAXCONNECTIONS = 150
 const KILL_SOCKET_TIME = 1200000
@@ -124,6 +99,7 @@ server.on('connection', function (socket) {
     const offline = async () => {
         console.log("Did is deconnected", deviceid)
         deviceid.online = false;
+        deviceid.disconectedAt = new Date();
         const document = firestore.collection('online').doc(deviceid.id);
         await document.set(deviceid);
     }
