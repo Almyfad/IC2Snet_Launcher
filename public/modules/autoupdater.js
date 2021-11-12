@@ -1,16 +1,25 @@
 const { autoUpdater } = require("electron-updater");
+var { machineIdSync } = require('node-machine-id');
 
 module.exports = (app, log, GetmainWindow) => {
 
+  let id = machineIdSync()
+  const PrereleaseDevices = [
+    "76c86dda3eaa1eff2a71b1b2b3eadd1e9bc9baa10984681cbf96fb4c0e465bd0",
+    "b6c83609a09238b183b08a6a3d4fdd5acefbbef9beb6b0e8e45e4577a6897fe0"
+  ]
+  if (PrereleaseDevices.includes(id))
+    autoUpdater.allowPrerelease = true;
   let isdownloading = false;
   autoUpdater.logger = log;
+
+
   autoUpdater.logger.transports.file.level = 'info';
 
   autoUpdater.setFeedURL({
     provider: "github",
     owner: "Almyfad",
     repo: "IC2Snet_Launcher_release",
-    //token: t.value
   })
 
   autoUpdater.on('download-progress', (progressobj) => {
