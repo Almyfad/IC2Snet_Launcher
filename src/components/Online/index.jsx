@@ -45,8 +45,16 @@ const tableIcons = {
 const Online = () => {
 
     const [data, setData] = useState([]);
+
+    let unsubscribe ;
+
+    
     useEffect(() => {
-        return online.stream(data => setData(data));
+        unsubscribe= online.stream(data => setData(data));
+        return () => {
+           let r= unsubscribe();
+            console.log("unscribed",r)
+        }
     }, []);
 
     return (
@@ -59,8 +67,8 @@ const Online = () => {
                     { title: "platform", field: "platform" },
                     { title: "hostname", field: "hostname" },
                     { title: "Version", field: "getVersion" },
-                    { title: "connectedAd", field: "connectedAd" },
-                    { title: "disconectedAt", field: "disconectedAt" },
+                    { title: "connectedAd", field: "connectedAd" ,render: rowData => rowData.connectedAd?.toDate()?.toString() },
+                    { title: "disconectedAt", field: "disconectedAt",render: rowData => rowData.disconectedAt?.toDate()?.toString() },
                 ]}
                 data={data}
                 title="Device Liste"

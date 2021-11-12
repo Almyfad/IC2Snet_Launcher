@@ -97,19 +97,17 @@ server.on('connection', function (socket) {
     }, KILL_SOCKET_TIME);
 
     const offline = async () => {
-        console.log("Did is deconnected", deviceid)
+        console.log("Did is deconnected", deviceid.id)
         deviceid.online = false;
         deviceid.disconectedAt = new Date();
-        const document = firestore.collection('online').doc(deviceid.id);
-        await document.set(deviceid);
+        firestore.collection('online').doc(deviceid.id).set(deviceid);
     }
 
     const online = async () => {
-        console.log("Did is online", deviceid)
+        console.log("Did is online", deviceid.id)
         deviceid.connectedAd = new Date();
-        const document = firestore.collection('online').doc(deviceid.id);
-        await document.set(deviceid);
-     
+        firestore.collection('online').doc(deviceid.id).set(deviceid);
+
     }
 });
 

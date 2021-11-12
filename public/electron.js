@@ -2,13 +2,6 @@ const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell } = require(
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
-
-
-
-
-
-
-
 nativeTheme.themeSource = 'dark'
 let mainWindow = null;
 let trayIcon = null; //Prevent garbage collecter to make disapear icon
