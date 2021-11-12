@@ -11,7 +11,7 @@ jobs:
     - name: cd /home/al/repos/IC2Snet_Launcher
       run: cd /home/al/repos/IC2Snet_Launcher && git pull
     - name : pm2
-      run: pm2 list
+      run:  pm2 restart Online
   build_on_mac:
     if: github.event.pull_request.merged
     runs-on: macos-latest
