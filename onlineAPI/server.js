@@ -86,7 +86,6 @@ server.on('connection', function (socket) {
 
     setTimeout(function () {
         console.log(`🔥🔥🔥 Killing socket for ${deviceid.hostname ?? deviceid.id} with v${deviceid.getVersion}🔥🔥🔥`);
-        offline(deviceid)
         socket.destroy();
     }, KILL_SOCKET_TIME);
 
