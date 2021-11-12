@@ -59,6 +59,8 @@ const Online = () => {
                     { title: "platform", field: "platform" },
                     { title: "hostname", field: "hostname" },
                     { title: "Version", field: "getVersion" },
+                    { title: "connectedAd", field: "connectedAd" },
+                    { title: "disconectedAt", field: "disconectedAt" },
                 ]}
                 data={data}
                 title="Device Liste"

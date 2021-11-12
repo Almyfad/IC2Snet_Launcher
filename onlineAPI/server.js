@@ -106,6 +106,7 @@ server.on('connection', function (socket) {
 
     const online = async () => {
         console.log("Did is online", deviceid)
+        deviceid.connectedAd = new Date();
         const document = firestore.collection('online').doc(deviceid.id);
         await document.set(deviceid);
      
