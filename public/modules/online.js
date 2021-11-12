@@ -55,8 +55,8 @@ module.exports = (app, log) => {
     setInterval(function () {
         if (client.pending && !client.connecting) {
             client.connect(Option);
+            log.info("[online]reconect")
         } else {
-            log.info("online:reconect")
         }
-    }, 5000)
+    }, 60000)
 };
