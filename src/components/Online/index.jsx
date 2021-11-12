@@ -45,8 +45,16 @@ const tableIcons = {
 const Online = () => {
 
     const [data, setData] = useState([]);
+
+    let unsubscribe ;
+
+    
     useEffect(() => {
-        return online.stream(data => setData(data));
+        unsubscribe= online.stream(data => setData(data));
+        return () => {
+           let r= unsubscribe();
+            console.log("unscribed",r)
+        }
     }, []);
 
     return (
