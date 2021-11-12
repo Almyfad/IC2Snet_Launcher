@@ -23,7 +23,8 @@ server.on('close', function () {
 
 // emitted when new client connects
 server.on('connection', function (socket) {
-    let deviceid = null
+    let CurrentDeviceMSg = null
+    let fireDocDevice=null
     server.getConnections(function (error, count) {
         console.log('Number of concurrent connections to the server : ' + count);
     });
@@ -36,12 +37,11 @@ server.on('connection', function (socket) {
 
 
     socket.on('data', function (data) {
-
-
         try {
             var bytes = CryptoJS.AES.decrypt(data, SECRET);
             var message = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-            deviceid = message
+            CurrentDeviceMSg = message
+            fireDocDevice=docrefOnline.doc(deviceid.id)
             online()
         }
         catch (e) {
@@ -59,25 +59,25 @@ server.on('connection', function (socket) {
 
     socket.on('error', function (error) {
         console.log('Error : ' + error);
-        offline(deviceid)
+        offline(CurrentDeviceMSg)
 
     });
 
     socket.on('timeout', function () {
         console.log('Socket timed out !');
         socket.end('Timed out!');
-        offline(deviceid)
+        offline(CurrentDeviceMSg)
         // can call socket.destroy() here too.
     });
 
     socket.on('end', function (data) {
         console.log('Socket ended from other end!');
-        offline(deviceid)
+        offline(CurrentDeviceMSg)
     });
 
     socket.on('close', function (error) {
         console.log('Socket closed!');
-        offline(deviceid)
+        offline(CurrentDeviceMSg)
 
         if (error) {
             console.log('Socket was closed coz of transmission error');
@@ -85,24 +85,24 @@ server.on('connection', function (socket) {
     });
 
     setTimeout(function () {
-        console.log(`🔥🔥🔥 Killing socket for ${deviceid.hostname ?? deviceid.id} with v${deviceid.getVersion}🔥🔥🔥`);
+        console.log(`🔥🔥🔥 Killing socket for ${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} with v${CurrentDeviceMSg.getVersion}🔥🔥🔥`);
         socket.destroy();
     }, KILL_SOCKET_TIME);
 
     const offline = async () => {
-        if (deviceid.id) {
-            console.log(`❌❌❌${deviceid.hostname ?? deviceid.id} is deconnected with v${deviceid.getVersion}❌❌❌`)
-            deviceid.online = false;
-            deviceid.disconectedAt = new Date();
-            docrefOnline.doc(deviceid.id).set(deviceid);
+        if (CurrentDeviceMSg.id) {
+            console.log(`❌❌❌${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is deconnected with v${CurrentDeviceMSg.getVersion}❌❌❌`)
+            CurrentDeviceMSg.online = false;
+            CurrentDeviceMSg.disconectedAt = new Date();
+            fireDocDevice.set(CurrentDeviceMSg);
         }
     }
 
     const online = async () => {
-        if (deviceid.id) {
-            console.log(`🚀🚀🚀${deviceid.hostname ?? deviceid.id} is online with v${deviceid.getVersion}🚀🚀🚀`)
-            deviceid.connectedAd = new Date();
-            docrefOnline.doc(deviceid.id).set(deviceid);
+        if (CurrentDeviceMSg.id) {
+            console.log(`🚀🚀🚀${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is online with v${CurrentDeviceMSg.getVersion}🚀🚀🚀`)
+            CurrentDeviceMSg.connectedAd = new Date();
+            fireDocDevice.set(CurrentDeviceMSg);
         }
     }
 });
