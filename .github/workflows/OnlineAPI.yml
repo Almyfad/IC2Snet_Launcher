@@ -1,0 +1,12 @@
+name: Build Deploy
+on:
+  push:
+    tags : [api]
+    branches:
+      - main
+jobs:
+  build_on_mac:
+    runs-on: self-hosted
+    steps:
+    - name: Install Yarn
+      run: pwd
