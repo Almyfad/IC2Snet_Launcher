@@ -46,32 +46,38 @@ const tableIcons = {
 const Online = () => {
 
     const [data, setData] = useState([]);
+    const [IsAdmin, SetIsAdmin] = useState(false);
 
 
 
     useEffect(() => {
-        const unsubscribe=online.stream(data => setData(data))
+        const unsubscribe = online.stream(data => setData(data))
+        window.profil.isadmin().then(x => {
+            console.log(x)
+            SetIsAdmin(x)
+        })
         return () => unsubscribe();
     }, []);
 
     return (
-        <div className="datatable">
-            <MaterialTable
-                icons={tableIcons}
-                columns={[
-                    { title: "status", field: "online", render: rowData => <span className={"circle" + rowData.online}></span> },
-                    { title: "user", field: "username" },
-                    { title: "platform", field: "platform" },
-                    { title: "hostname", field: "hostname" },
-                    { title: "Version", field: "getVersion" },
-                    { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd ? moment(rowData.connectedAd.toDate()).format('DD/MM/YY HH:mm') : "" },
-                    { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt ? moment(rowData.disconectedAt.toDate()).format('DD/MM/YY HH:mm') : "" },
-                ]}
-                data={data}
-                title="Device Liste"
-                options={{ paging: true, pageSize: 10, }}
-            />
-        </div>
+        <>{IsAdmin &&
+            <div className="datatable">
+                <MaterialTable
+                    icons={tableIcons}
+                    columns={[
+                        { title: "status", field: "online", render: rowData => <span className={"circle" + rowData.online}></span> },
+                        { title: "user", field: "username" },
+                        { title: "platform", field: "platform" },
+                        { title: "hostname", field: "hostname" },
+                        { title: "Version", field: "getVersion" },
+                        { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd ? moment(rowData.connectedAd.toDate()).format('DD/MM/YY HH:mm') : "" },
+                        { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt ? moment(rowData.disconectedAt.toDate()).format('DD/MM/YY HH:mm') : "" },
+                    ]}
+                    data={data}
+                    title="Device Liste"
+                    options={{ paging: true, pageSize: 10 }}
+                />
+            </div>}</>
     )
 }
 

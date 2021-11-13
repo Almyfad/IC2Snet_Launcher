@@ -1,12 +1,27 @@
-const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell,powerMonitor } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell, powerMonitor } = require('electron')
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
+var { machineIdSync } = require('node-machine-id');
 nativeTheme.themeSource = 'dark'
 let mainWindow = null;
 let trayIcon = null; //Prevent garbage collecter to make disapear icon
 
+let DeviceId = machineIdSync()
+const PrereleaseDevices = [
+  "76c86dda3eaa1eff2a71b1b2b3eadd1e9bc9baa10984681cbf96fb4c0e465bd0", //cs-macbookpro.local
+  "b6c83609a09238b183b08a6a3d4fdd5acefbbef9beb6b0e8e45e4577a6897fe0" //LAPTOP-969GB5UC
+]
+const AdminDevices = [
+  "76c86dda3eaa1eff2a71b1b2b3eadd1e9bc9baa10984681cbf96fb4c0e465bd0", //cs-macbookpro.local
+  "b6c83609a09238b183b08a6a3d4fdd5acefbbef9beb6b0e8e45e4577a6897fe0", //LAPTOP-969GB5UC
+  "8f46dcfa7ee0e40420ef0574a41ab485bdd4e2022af193c7d56038a9b2ba9a28", //R2D2
+  "63e729a8545bfb178f79842ac45188351e6a54a7cc3ab42322c2328b2a30b9b1", //ic2snet-minimac.home
+  "b128c15d73dcc15fb602bc2728dec54ca4df488b30b0f0514f2c56091cb7ec49", //ic2snet-ipad.home
+]
 
+const IsAdmin = () => AdminDevices.includes(DeviceId)
+const IsPrelease = () => PrereleaseDevices.includes(DeviceId)
 
 /*---------------------UNIQ INSTANCE------------------------*/
 /*---------------------------------------------------------*/
@@ -56,7 +71,7 @@ let SetTray = () => {
 /*---------------------AUTO UPDATER------------------------*/
 /*---------------------------------------------------------*/
 
-require('./modules/autoupdater')(app, log, () => mainWindow)
+require('./modules/autoupdater')(app, log, IsPrelease())
 
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
@@ -73,7 +88,7 @@ require('./modules/autolaunch')(app);
 /*---------------------   ONLINE   ------------------------*/
 /*---------------------------------------------------------*/
 
-require('./modules/online')(app,log);
+require('./modules/online')(app, log, DeviceId);
 
 
 /*---------------------------------------------------------*/
@@ -177,6 +192,7 @@ function show() {
 /*---------------------------------------------------------*/
 
 ipcMain.handle('systray:me', () => { hide() });
+ipcMain.handle('profil:isadmin', () => IsAdmin());
 ipcMain.handle('topbarmenu:close', () => { hide() });
 
 ipcMain.handle('topbarmenu:min', () => {
