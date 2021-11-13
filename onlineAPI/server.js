@@ -41,7 +41,7 @@ server.on('connection', function (socket) {
             var bytes = CryptoJS.AES.decrypt(data, SECRET);
             var message = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
             CurrentDeviceMSg = message
-            fireDocDevice = docrefOnline.doc(deviceid.id)
+            fireDocDevice = docrefOnline.doc(CurrentDeviceMSg.id)
             online()
         }
         catch (e) {
