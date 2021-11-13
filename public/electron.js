@@ -181,6 +181,7 @@ function show() {
     createWindow()
   if (mainWindow.isMinimized()) mainWindow.restore()
   mainWindow.focus()
+  mainWindow.maximize();
   mainWindow.show();
 }
 
