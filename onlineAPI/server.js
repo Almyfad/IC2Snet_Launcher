@@ -77,7 +77,7 @@ server.on('connection', function (socket) {
 
     socket.on('close', function (error) {
         console.log('Socket closed!');
-        offline(CurrentDeviceMSg)
+     //   offline(CurrentDeviceMSg)
 
         if (error) {
             console.log('Socket was closed coz of transmission error');
