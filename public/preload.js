@@ -18,3 +18,8 @@ contextBridge.exposeInMainWorld('topbarmenu', {
     min: () => ipcRenderer.invoke('topbarmenu:min'),
     max: () => ipcRenderer.invoke('topbarmenu:max'),
 })
+
+
+contextBridge.exposeInMainWorld('profil', {
+    isadmin: () => ipcRenderer.invoke('profil:isadmin'),
+})
