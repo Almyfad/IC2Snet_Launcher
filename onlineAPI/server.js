@@ -24,7 +24,7 @@ server.on('close', function () {
 // emitted when new client connects
 server.on('connection', function (socket) {
     let CurrentDeviceMSg = null
-    let fireDocDevice=null
+    let fireDocDevice = null
     server.getConnections(function (error, count) {
         console.log('Number of concurrent connections to the server : ' + count);
     });
@@ -41,11 +41,11 @@ server.on('connection', function (socket) {
             var bytes = CryptoJS.AES.decrypt(data, SECRET);
             var message = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
             CurrentDeviceMSg = message
-            fireDocDevice=docrefOnline.doc(deviceid.id)
+            fireDocDevice = docrefOnline.doc(deviceid.id)
             online()
         }
         catch (e) {
-            console.error('Error parsing')
+            console.error('🛑❌🛑 Error parsing 🛑❌🛑',data)
             socket.destroy()
         }
 
@@ -90,20 +90,22 @@ server.on('connection', function (socket) {
     }, KILL_SOCKET_TIME);
 
     const offline = async () => {
-        if (CurrentDeviceMSg.id) {
-            console.log(`❌❌❌${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is deconnected with v${CurrentDeviceMSg.getVersion}❌❌❌`)
-            CurrentDeviceMSg.online = false;
-            CurrentDeviceMSg.disconectedAt = new Date();
-            fireDocDevice.set(CurrentDeviceMSg);
-        }
+        if (CurrentDeviceMSg)
+            if (CurrentDeviceMSg.id) {
+                console.log(`❌❌❌${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is deconnected with v${CurrentDeviceMSg.getVersion}❌❌❌`)
+                CurrentDeviceMSg.online = false;
+                CurrentDeviceMSg.disconectedAt = new Date();
+                fireDocDevice.set(CurrentDeviceMSg);
+            }
     }
 
     const online = async () => {
-        if (CurrentDeviceMSg.id) {
-            console.log(`🚀🚀🚀${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is online with v${CurrentDeviceMSg.getVersion}🚀🚀🚀`)
-            CurrentDeviceMSg.connectedAd = new Date();
-            fireDocDevice.set(CurrentDeviceMSg);
-        }
+        if (CurrentDeviceMSg)
+            if (CurrentDeviceMSg.id) {
+                console.log(`🚀🚀🚀${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is online with v${CurrentDeviceMSg.getVersion}🚀🚀🚀`)
+                CurrentDeviceMSg.connectedAd = new Date();
+                fireDocDevice.set(CurrentDeviceMSg);
+            }
     }
 });
 

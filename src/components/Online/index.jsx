@@ -46,15 +46,12 @@ const Online = () => {
 
     const [data, setData] = useState([]);
 
-    let unsubscribe ;
 
-    
+
     useEffect(() => {
-        unsubscribe= online.stream(data => setData(data));
-        return () => {
-           let r= unsubscribe();
-            console.log("unscribed",r)
-        }
+        let unsubscribe = online.stream(data => setData(data));
+        return unsubscribe();
+
     }, []);
 
     return (
@@ -67,8 +64,8 @@ const Online = () => {
                     { title: "platform", field: "platform" },
                     { title: "hostname", field: "hostname" },
                     { title: "Version", field: "getVersion" },
-                    { title: "connectedAd", field: "connectedAd" ,render: rowData => rowData.connectedAd?.toDate()?.toString() },
-                    { title: "disconectedAt", field: "disconectedAt",render: rowData => rowData.disconectedAt?.toDate()?.toString() },
+                    { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd?.toDate()?.toString() },
+                    { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt?.toDate()?.toString() },
                 ]}
                 data={data}
                 title="Device Liste"
