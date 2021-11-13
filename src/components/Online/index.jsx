@@ -3,6 +3,7 @@ import './style.css'
 import { online } from './../../firebase-config'
 import MaterialTable from "material-table";
 import { forwardRef } from 'react';
+import moment from 'moment'
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -49,9 +50,8 @@ const Online = () => {
 
 
     useEffect(() => {
-        let unsubscribe = online.stream(data => setData(data));
-        return unsubscribe();
-
+        const unsubscribe=online.stream(data => setData(data))
+        return () => unsubscribe();
     }, []);
 
     return (
@@ -64,8 +64,8 @@ const Online = () => {
                     { title: "platform", field: "platform" },
                     { title: "hostname", field: "hostname" },
                     { title: "Version", field: "getVersion" },
-                    { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd?.toDate()?.toString() },
-                    { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt?.toDate()?.toString() },
+                    { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd ? moment(rowData.connectedAd.toDate()).format('DD/MM/YY hh:mm') : "" },
+                    { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt ? moment(rowData.disconectedAt.toDate()).format('DD/MM/YY hh:mm') : "" },
                 ]}
                 data={data}
                 title="Device Liste"
