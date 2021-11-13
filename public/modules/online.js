@@ -58,5 +58,5 @@ module.exports = (app, log) => {
             log.info("[online]reconect")
         } else {
         }
-    }, 60000)
+    }, 5000)
 };
