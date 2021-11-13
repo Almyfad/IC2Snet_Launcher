@@ -188,5 +188,3 @@ ipcMain.handle('topbarmenu:max', () => {
     mainWindow.maximize()
   }
 });
-
-
