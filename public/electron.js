@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeTheme, ipcMain, shell,powerMonitor } = require('electron')
 const log = require("electron-log")
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -74,6 +74,7 @@ require('./modules/autolaunch')(app);
 /*---------------------------------------------------------*/
 
 require('./modules/online')(app,log);
+
 
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/

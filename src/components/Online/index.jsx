@@ -64,8 +64,8 @@ const Online = () => {
                     { title: "platform", field: "platform" },
                     { title: "hostname", field: "hostname" },
                     { title: "Version", field: "getVersion" },
-                    { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd ? moment(rowData.connectedAd.toDate()).format('DD/MM/YY hh:mm') : "" },
-                    { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt ? moment(rowData.disconectedAt.toDate()).format('DD/MM/YY hh:mm') : "" },
+                    { title: "connectedAd", field: "connectedAd", render: rowData => rowData.connectedAd ? moment(rowData.connectedAd.toDate()).format('DD/MM/YY HH:mm') : "" },
+                    { title: "disconectedAt", field: "disconectedAt", render: rowData => rowData.disconectedAt ? moment(rowData.disconectedAt.toDate()).format('DD/MM/YY HH:mm') : "" },
                 ]}
                 data={data}
                 title="Device Liste"
