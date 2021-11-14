@@ -1,4 +1,25 @@
-.img {
+
+.Home {
+    width:250px;
+    height:250px;
+    padding: 200px;
+    border-radius: 50%;
     margin: auto;
     background-color: rgb(253, 253, 253);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rive {
+}
+
+
+.img {
+    margin-top: 30px;
+}
+
+.img img{
+    width: 300px
 }
