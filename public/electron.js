@@ -71,7 +71,7 @@ let SetTray = () => {
 /*---------------------AUTO UPDATER------------------------*/
 /*---------------------------------------------------------*/
 
-require('./modules/autoupdater')(app, log, IsPrelease())
+require('./modules/autoupdater')(app, log, IsPrelease(),powerMonitor)
 
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
@@ -88,7 +88,7 @@ require('./modules/autolaunch')(app);
 /*---------------------   ONLINE   ------------------------*/
 /*---------------------------------------------------------*/
 
-require('./modules/online')(app, log, DeviceId);
+require('./modules/online')(app, log, DeviceId,powerMonitor);
 
 
 /*---------------------------------------------------------*/

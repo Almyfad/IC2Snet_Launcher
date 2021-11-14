@@ -1,6 +1,7 @@
 const { autoUpdater } = require("electron-updater");
+let interval;
 
-module.exports = (app, log, PrereleaseDevice) => {
+module.exports = (app, log, PrereleaseDevice,powerMonitor) => {
 
   if (PrereleaseDevice) {
     autoUpdater.allowPrerelease = true;
@@ -55,8 +56,31 @@ module.exports = (app, log, PrereleaseDevice) => {
     }
   }
   checkForUpdates()
-  setInterval(() => {
-    checkForUpdates()
-  }, 60 * 1000);
+
+
+
+  launchInterval = () => {
+    if (interval)
+      clearInterval(interval)
+    return setInterval(() => {
+      checkForUpdates()
+    }, 60 * 1000);
+  }
+
+
+  interval = launchInterval()
+
+
+  powerMonitor.on('suspend', () => {
+    log.ingo("[PM][AutoUpdater]Machine suspending...")
+    if (interval)
+      clearInterval(interval)
+  });
+
+  powerMonitor.on('resume', () => {
+    log.ingo("[PM][AutoUpdater]Machine resuming...")
+    interval = launchInterval()
+
+  });
 
 };
