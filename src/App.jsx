@@ -44,7 +44,7 @@ const App = () => {
   return <>
     <div className="App">
       <Menu isOpen={isOpen} onOpen={handleOpen} onClose={handleClose} pageWrapId={"page-wrap"} outerContainerId={"outer-container"}>
-        <div className="menulogo" onClick={(e) => switchToScrren(e, "Home")}><img src="./assets/img/logo.png" /></div>
+        <div className="menulogo" onClick={(e) => switchToScrren(e, "Home")}><img alt="logo" src="./assets/img/logo.png" /></div>
         <div className="menuitem" onClick={(e) => switchToScrren(e, "Home")}>< HomeOutlinedIcon /><span>Acceuil</span></div>
         <>{isAdmin && <div className="menuitem" onClick={(e) => switchToScrren(e, "Online")}>< DeviceHubOutlinedIcon /><span>Liste des devices</span></div>}</>
         <div className="menuitem" onClick={(e) => switchToScrren(e, "About")}>< InfoOutlinedIcon /><span>A propos</span></div>
