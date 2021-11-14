@@ -72,13 +72,13 @@ module.exports = (app, log, PrereleaseDevice,powerMonitor) => {
 
 
   powerMonitor.on('suspend', () => {
-    log.ingo("[PM][AutoUpdater]Machine suspending...")
+    log.info("[PM][AutoUpdater]Machine suspending...")
     if (interval)
       clearInterval(interval)
   });
 
   powerMonitor.on('resume', () => {
-    log.ingo("[PM][AutoUpdater]Machine resuming...")
+    log.info("[PM][AutoUpdater]Machine resuming...")
     interval = launchInterval()
 
   });
