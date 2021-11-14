@@ -46,21 +46,11 @@ const tableIcons = {
 const Online = () => {
 
     const [data, setData] = useState([]);
-    const [IsAdmin, SetIsAdmin] = useState(false);
-
-
-
     useEffect(() => {
         const unsubscribe = online.stream(data => setData(data))
-        window.profil.isadmin().then(x => {
-            console.log(x)
-            SetIsAdmin(x)
-        })
         return () => unsubscribe();
     }, []);
-
-    return (
-        <>{IsAdmin &&
+    return (     
             <div className="datatable">
                 <MaterialTable
                     icons={tableIcons}
@@ -77,7 +67,7 @@ const Online = () => {
                     title="Device Liste"
                     options={{ paging: true, pageSize: 10 }}
                 />
-            </div>}</>
+            </div>
     )
 }
 

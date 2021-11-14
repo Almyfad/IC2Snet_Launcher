@@ -1,9 +1,9 @@
 .App {
   text-align: center;
-  display: flex;
+  /*display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center;*/
   font-size: calc(10px + 2vmin);
   color: white;
   width: 100vw;
@@ -31,4 +31,101 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #f39200; 
+}
+
+/*MENU CSS */ 
+.menuitem {
+  font-size: 18px;
+  margin: 20px 0 0 0;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+
+
+
+.menulogo {
+ background-color: #d3d2d2;
+ padding:35px;
+ border-radius : 50%;
+ border : 2px solid #f39200;
+}
+
+
+.menulogo img{
+  width: 150px;
+}
+
+.menuitem svg {
+  margin: 5px;
+}
+/* Position and sizing of burger button */
+.bm-burger-button {
+  -webkit-app-region: none;
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  left: 5px;
+  top: 7px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #ffffff;
+  height: 2px !important ;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #a90000;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  font-size: 1.15em;
+  overflow: hidden !important;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
 }

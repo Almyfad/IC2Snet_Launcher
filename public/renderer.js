@@ -9,3 +9,4 @@ document.getElementById('maxResAppBtn').addEventListener('click',  () => {
 document.getElementById('CloseAppBtn').addEventListener('click',  () => {
 	window.topbarmenu.close();
 })
+

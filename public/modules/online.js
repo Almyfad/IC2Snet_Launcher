@@ -55,7 +55,7 @@ module.exports = (app, log, DeviceId) => {
             client.connect(Option);
             log.info("[online]reconect")
         } else {
-            log.info(`[online] pending: ${client.pending} connecting :${client.connecting}`,)
+        //    log.info(`[online] pending: ${client.pending} connecting :${client.connecting}`,)
         }
     }, 5000)
 };
