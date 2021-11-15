@@ -33,6 +33,10 @@ server.on('resumeSession', (id, cb) => {
 });
 
 
+server.on('data', (data) => {
+   console.log(data)
+  });
+
 server.listen(2323, () => {
   console.log('server bound');
 });
