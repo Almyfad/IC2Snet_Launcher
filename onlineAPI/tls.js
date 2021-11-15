@@ -28,7 +28,7 @@ const server = tls.createServer(options, (socket) => {
 
 const tlsSessionStore = {};
 server.on('newSession', (id, data, cb) => {
-    console.log("newSession",JSON.stringify(tlsSessionStore) )
+    console.log("newSession",Object.keys(tlsSessionStore).length )
     tlsSessionStore[id.toString('hex')] = data;
     cb();
 });
