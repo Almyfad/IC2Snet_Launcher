@@ -2,6 +2,7 @@ const tls = require('tls');
 const fs = require('fs');
  
 const options = {
+
     key: fs.readFileSync('./certs/server/server.key'),
     cert: fs.readFileSync('./certs/server/server.crt'),
     ca: fs.readFileSync('./certs/ca/ca.crt'), // authority chain for the clients
