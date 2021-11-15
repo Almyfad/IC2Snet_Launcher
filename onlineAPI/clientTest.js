@@ -21,6 +21,7 @@ var socket = tls.connect(options, () => {
               socket.authorized ? 'authorized' : 'unauthorized');
   process.stdin.pipe(socket);
   process.stdin.resume();
+  socket.write("hello im here")
 
   socket.end();
 })

@@ -17,6 +17,22 @@ const server = tls.createServer(options, (socket) => {
   socket.setEncoding('utf8');
   socket.pipe(socket);
 });
+
+
+
+const cb = () => {console.log("cb is called");}
+
+const tlsSessionStore = {};
+server.on('newSession', (id, data, cb) => {
+    console.log(data)
+  tlsSessionStore[id.toString('hex')] = data;
+  cb();
+});
+server.on('resumeSession', (id, cb) => {
+  cb(null, tlsSessionStore[id.toString('hex')] || null);
+});
+
+
 server.listen(2323, () => {
   console.log('server bound');
 });
