@@ -94,7 +94,7 @@ const server = tls.createServer(options, (socket) => {
                 console.log(`❌❌❌${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is deconnected with v${CurrentDeviceMSg.getVersion}❌❌❌`)
                 CurrentDeviceMSg.online = false;
                 CurrentDeviceMSg.disconectedAt = new Date();
-                fireDocDevice.set(CurrentDeviceMSg);
+             //   fireDocDevice.set(CurrentDeviceMSg);
             }
     }
 
@@ -103,7 +103,7 @@ const server = tls.createServer(options, (socket) => {
             if (CurrentDeviceMSg.id) {
                 console.log(`🚀🚀🚀${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is online with v${CurrentDeviceMSg.getVersion}🚀🚀🚀`)
                 CurrentDeviceMSg.connectedAd = new Date();
-                fireDocDevice.set(CurrentDeviceMSg);
+            //    fireDocDevice.set(CurrentDeviceMSg);
             }
     }
 
