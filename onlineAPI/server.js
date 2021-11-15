@@ -8,7 +8,7 @@ const docrefOnline = firestore.collection('online')
 const PORT = 2323
 const MAXCONNECTIONS = 100
 const KILL_SOCKET_TIME = 1800000 //30minutes
-const SOCKET_TIMEOUT = 60000 //30Seconde  //86400000 1jour
+const SOCKET_TIMEOUT = 600000  //86400000 1jour
 //const tlsSessionStore = {};
 
 const options = {
