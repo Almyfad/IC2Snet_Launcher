@@ -70,11 +70,11 @@ module.exports = (app, log, DeviceId, powerMonitor) => {
     }, 5000);
   }
   Connect = () => {
-    return ClientSocket = tls.connect(options, () => {
+    return  tls.connect(options, () => {
       log.info('client connected',
         ClientSocket.authorized ? 'authorized' : 'unauthorized');
-      process.stdin.pipe(ClientSocket);
-      process.stdin.resume();
+     // process.stdin.pipe(ClientSocket);
+    //  process.stdin.resume();
       ClientSocket.write(CreateMsg())
       // socket.end();
     })

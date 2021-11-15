@@ -25,7 +25,6 @@ const server = tls.createServer(options, (socket) => {
     let fireDocDevice = null
     console.log('server connected',
         socket.authorized ? 'authorized' : 'unauthorized');
-    //socket.write('welcome!\n');
     socket.setEncoding('utf8');
     socket.pipe(socket);
 

@@ -71,7 +71,7 @@ launchInterval = () => {
   }, 5000);
 }
 Connect = () => {
-  return ClientSocket = tls.connect(options, () => {
+  return  tls.connect(options, () => {
     console.log('client connected',
       ClientSocket.authorized ? 'authorized' : 'unauthorized');
     process.stdin.pipe(ClientSocket);
@@ -82,7 +82,7 @@ Connect = () => {
     .setEncoding('utf8')
     .setKeepAlive(true, 300000)//Toutes les 5min
     .on('data', (data) => {
-      console.log("online:receveing data")
+      console.log("online:receveing data",data)
     })
     .on('error', (err) => {
       console.log('online:Socket error reconecting');
