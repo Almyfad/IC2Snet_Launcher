@@ -30,8 +30,8 @@ const server = tls.createServer(options, (socket) => {
     socket.pipe(socket);
 
     socket.setTimeout(SOCKET_TIMEOUT, function () {
-        socket.destroy();
         console.log('Socket timed out');
+        socket.destroy();
     });
 
     socket.on('data', (data) => {

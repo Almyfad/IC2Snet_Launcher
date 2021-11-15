@@ -63,7 +63,7 @@ launchInterval = () => {
   ClientSocket = Connect()
   return setInterval(() => {
     if (ClientSocket.pending && !ClientSocket.connecting) {
-    //  ClientSocket = Connect()
+      ClientSocket = Connect()
       console.log("[online]reconect")
     } else {
       //    console.log(`[online] pending: ${ClientSocket.pending} connecting :${ClientSocket.connecting}`,)
@@ -93,20 +93,3 @@ Connect = () => {
 }
 
 interval = launchInterval()
-
-
-/*  powerMonitor.on('suspend', () => {
-    console.log("[PM][Online]Machine suspending...")
-    if (interval)
-      clearInterval(interval)
-  });
-
-  powerMonitor.on('resume', () => {
-    console.log("[PM][Online]Machine resuming...")
-    interval = launchInterval()
-
-  });
-
-}
-*/
-
