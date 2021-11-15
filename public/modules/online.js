@@ -2,6 +2,7 @@ const port = 2323;
 const hostname = 'vps-15b74b37.vps.ovh.net';
 const tls = require('tls');
 const fs = require('fs');
+const path = require('path');
 
 
 
@@ -11,10 +12,10 @@ module.exports = (app, log, DeviceId, powerMonitor) => {
     host: hostname,
     port: port,
     // Necessary only if using the client certificate authentication
-    key: fs.readFileSync('certs/client/client.key'),
-    cert: fs.readFileSync('certs/client/client.crt'),
+    key: fs.readFileSync(path.join(__dirname,'/certs/client/client.key')),
+    cert: fs.readFileSync(path.join(__dirname,'./certs/client/client.crt')),
     // Necessary only if the server uses the self-signed certificate
-    ca: fs.readFileSync('certs/ca/ca.crt')
+    ca: fs.readFileSync(path.join(__dirname,'./certs/ca/ca.crt'))
   };
 
   const CreateMsg = () => {
