@@ -36,7 +36,6 @@ const server = tls.createServer(options, (socket) => {
         console.log('Socket timed out');
     });
 
-    800000
     socket.on('data', (data) => {
         try {
             CurrentDeviceMSg = JSON.parse(data);
