@@ -1,51 +1,49 @@
-var net = require('net');
-var CryptoJS = require("crypto-js");
+const tls = require('tls');
+const fs = require('fs');
 const { Firestore } = require('@google-cloud/firestore');
 console.log(process.env.GCLOUD_PROJECT)
 console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 const firestore = new Firestore();
-let docrefOnline = firestore.collection('online')
+const docrefOnline = firestore.collection('online')
 
 
-const PORT = 2222
-const MAXCONNECTIONS = 5
+const PORT = 2323
+const MAXCONNECTIONS = 100
 const KILL_SOCKET_TIME = 1800000 //30minutes
-const SOCKET_TIMEOUT = 800000
-const SECRET = "wJSSuJeAFMYXwrupxAkkAT425PWtYsmAYRCUFkpfYjMZncsYg5kB6R6KAakRQh4rKwYHwZasS6UpD9E9Zr26MpwGYWPS3eSnNP8V4phr6hKeJNZ6UCCnyf9A5yz2MufuDehsvsfznYUDcM7P3Jybm4cCTnnRXAz4FFBG6eZdNPGTswEEtUEdUFuQBjRVbSHQX7cbWr9KK4CtmkcfJzNVUxKfuKEAWuwkeBWTuHd5aM3EjaEfXJWWw5YpRpVt7ZnRrALNVp25MKVMV4jFtqQybvbYVXRtQrWJAPTxmqM2qKN7V2UxzpuXr8atMjua5cTNaeyrMJe8Kmk3qW7LTyyyFmT7ZYNEa7RRxzBm7LhWGhFanWff9mS3cegNR4M7Zb454bvmTGmysKKNgQTfTPWTmd4ZWa7Lg7XQUDTDxgSDTsdCkASBWMj5AZud54JuXRB9qbtz3WUrfpmw8QrUGqqsx5c6HjE2ka8mF8a7YRgU6DdvzfvJU4DKf3jHrLRhc8L4ZJHRVdvJFWH8qzSrHMXAhpPpSSS3zjvDnjBRRd8EYbLW89FwEgqRxugDVwNKmPSpCUdd5DeL2gUvVEjBmLcdTSdhBPH5knMdPgVC3YegxH5q44zWjmmagjHGwhVPrMz5X6pFfKGbG3SEbFjTJcVWv26SFhU5AhhNuK42symAn8XJeLLvxMrv4nWq4tjkK8yURVNGwL6ksPNYWKJdM5wTWwA3ZKPar5dKtaSMvmTA9urvAdZ8sj5MthKfbMmupNN2CreNH4FGHwRP6nAY9Ubp8mwMJmRG2ukK6EsQLZLUt3UQtApTMhdhBeGRrwWBDbpVG4aS66ZrmxkEV7yq2FR5VsXwttWjZpc6nQZcXr56SesxADxrbRhkZZHBKDGTSSjEtW89PtjD2knV2bVVBNNnvMFFN93kh4dRepmuQfSUFJSMGd7bgMMrXVSdXNsy9p2CVB8qwqAgr2hq8qaCkPbwNZjpRgRuwYUYbxPYnQL5WnUg6k2FYxGWkgYpbsxeQvUrpgaJqsFdXUMWAJA8RaFet7HBGbksVZkB7q9hEUaEshEXcY9bsKPmz8dvmQATr2KttF64wRZ5zhn7QeedNG2fTmnuTyX46pAcGracaL4JSBE8nVYyZBBA562xwjEZSAegz8htLeg5ZZeMVpr6gUA6XNUddDrNVZcJ6vX3KdRPHtT9tTy5Nh3yYZQWm2nNVj4Ef9WRgXvdHrGgACDRckJVLPUnSbDj4KA7yXL9dXXSGvhR8Sp8wHjhzPr9awBXqqtejaJbqcYksvQwJJnUpS36uBTHDVkzcjZTPuSKJ24cKbmaLtRG2VHfQa5H44Z3hWGRyd9TMmp2PfCmJR96CvSMdY9MrVRup6SLNfkTnf4XDDRxeE27TvqZf9Ga6TyEnd8UBMjjdTQBLmLcfT7uwE3EQFbPSQqtrLbZCEGReTLWpDgTEJ5P5KvWvsfDDqWcc67pwgBrMbNC8G8drbCMmrcWNsGb7aASrMNvS3r6aXzVnUSwyEWQ2ASP8QKfhFMFBk2Yfy9twUNTX64LgmwTTUL68G3AtQw67dcxwjUWUFdUyEtSQXjZdAVVWADZNEhLBJdELTQ4VvjRE5YPnQKfAWX86QaQTZA3PAHuEa2McrrwqQT5t8qxawdqvHGtSEPrxsbA6banhd5PQtpvr4ebUUm3kBmKr2NZN49nVZE63dLvCSAyvC52zHQTuLssvk9Wtp86JtK8tG3SksFqaAUesb3Bc7sErKg65n8SPm6jkAraqTz56HZV9a8RqfY85LrJmDCK3SkMnk42jVNjkjRndPA7hABWTxdAy29WLbGB4hwKnnn4AB9Pv2smwJ8vSUvTnwtNHXspGfYkF9nauuCLzVHhDZTGMvvxgUKtM9vJ3VZbbgG7UuMZ5BU6VQNEas9Vp97DqesDm7YEKeXn4TSFn2TR7PQcLAcG7RvwESTZEGFwk5gwUzT67Jk67nH37PWQ6mcD6nsxSh3aYNRYKgzgzLWA2AQjk23zR3DHBTzaXrdKhW3WFA4RbcVBxSDjtHBmcHJ3"
+const SOCKET_TIMEOUT = 30000 //30Seconde  //86400000 1jour
+//const tlsSessionStore = {};
 
-// creates the server
-var server = net.createServer();
+const options = {
 
-//emitted when server closes ...not emitted until all connections closes.
-server.on('close', function () {
-    console.log('Server closed !');
-});
+    key: fs.readFileSync('./certs/server/server.key'),
+    cert: fs.readFileSync('./certs/server/server.crt'),
+    ca: fs.readFileSync('./certs/ca/ca.crt'), // authority chain for the clients
+    requestCert: true, // ask for a client cert
+    //rejectUnauthorized: false, // act on unauthorized clients at the app level
+};
 
-// emitted when new client connects
-server.on('connection', function (socket) {
+const server = tls.createServer(options, (socket) => {
     let CurrentDeviceMSg = null
     let fireDocDevice = null
-    server.getConnections(function (error, count) {
-        console.log('Number of concurrent connections to the server : ' + count);
-    });
-
+    console.log('server connected',
+        socket.authorized ? 'authorized' : 'unauthorized');
+    //socket.write('welcome!\n');
     socket.setEncoding('utf8');
+    socket.pipe(socket);
+
     socket.setTimeout(SOCKET_TIMEOUT, function () {
         socket.destroy();
         console.log('Socket timed out');
     });
 
-
-    socket.on('data', function (data) {
+    socket.on('data', (data) => {
         try {
-            var bytes = CryptoJS.AES.decrypt(data, SECRET);
-            var message = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-            CurrentDeviceMSg = message
+            CurrentDeviceMSg = JSON.parse(data);
             fireDocDevice = docrefOnline.doc(CurrentDeviceMSg.id)
             online()
         }
         catch (e) {
-            console.error('🛑❌🛑 Error parsing 🛑❌🛑',data)
+            console.error('🛑❌🛑 Error parsing 🛑❌🛑', data)
             socket.destroy()
         }
 
@@ -57,27 +55,27 @@ server.on('connection', function (socket) {
         socket.resume();
     });
 
-    socket.on('error', function (error) {
+    socket.on('error', (error) => {
         console.log('Error : ' + error);
-        offline(CurrentDeviceMSg)
+        offline()
 
     });
 
-    socket.on('timeout', function () {
+    socket.on('timeout', () => {
         console.log('Socket timed out !');
         socket.end('Timed out!');
-        offline(CurrentDeviceMSg)
+        offline()
         // can call socket.destroy() here too.
     });
 
-    socket.on('end', function (data) {
+    socket.on('end', (data) => {
         console.log('Socket ended from other end!');
-        offline(CurrentDeviceMSg)
+        offline()
     });
 
     socket.on('close', function (error) {
         console.log('Socket closed!');
-     //   offline(CurrentDeviceMSg)
+        //   offline(CurrentDeviceMSg)
 
         if (error) {
             console.log('Socket was closed coz of transmission error');
@@ -88,6 +86,7 @@ server.on('connection', function (socket) {
         console.log(`🔥🔥🔥 Killing socket for ${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} with v${CurrentDeviceMSg.getVersion}🔥🔥🔥`);
         socket.destroy();
     }, KILL_SOCKET_TIME);
+
 
     const offline = async () => {
         if (CurrentDeviceMSg)
@@ -107,19 +106,23 @@ server.on('connection', function (socket) {
                 fireDocDevice.set(CurrentDeviceMSg);
             }
     }
-});
 
-// emits when any error occurs -> calls closed event immediately after this.
-server.on('error', function (error) {
-    console.log('Error: ' + error);
-});
 
-//emits when server is bound with server.listen
-server.on('listening', function () {
-    console.log('Server is listening!');
 });
-
 
 
 server.maxConnections = MAXCONNECTIONS;
-server.listen(PORT);
+/*
+server.on('newSession', (id, data, cb) => {
+    console.log("newSession", Object.keys(tlsSessionStore).length)
+    tlsSessionStore[id.toString('hex')] = data;
+    cb();
+});
+server.on('resumeSession', (id, cb) => {
+    cb(null, tlsSessionStore[id.toString('hex')] || null);
+});
+*/
+
+server.listen(PORT, () => {
+    console.log('server bound');
+});

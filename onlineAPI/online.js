@@ -19,24 +19,26 @@ const options = {
 
 const CreateMsg = () => {
   var os = require('os');
-  let arch, platform, hostname
+  let arch
+  let platform
+  let hostname
   try {
     arch = os.arch() ?? ""
   } catch (e) {
-    console.log("Couldn't find  os.arch()")
+    log.info("Couldn't find  os.arch()")
   }
 
   try {
     platform = os.platform() ?? ""
   } catch (e) {
-    console.log("Couldn't find  os.platform()")
+    log.info("Couldn't find  os.platform()")
 
   }
 
   try {
     hostname = os.hostname() ?? ""
   } catch (e) {
-    console.log("Couldn't find  os.hostname()")
+    log.info("Couldn't find  os.hostname()")
 
   }
 
@@ -46,7 +48,7 @@ const CreateMsg = () => {
     platform: os.platform() ?? "",
     hostname: os.hostname() ?? "",
     username: process.env.username,
-    getVersion: "app.getVersion() "?? "No Version",
+    getVersion: "app.getVersion() " ?? "No Version",
     online: true,
   });
 
@@ -55,22 +57,22 @@ const CreateMsg = () => {
 let ClientSocket;
 
 launchInterval = () => {
-  console.log("launchInterval")
+  log.info("launchInterval")
   if (interval)
     clearInterval(interval)
   ClientSocket = Connect()
   return setInterval(() => {
     if (ClientSocket.pending && !ClientSocket.connecting) {
       ClientSocket = Connect()
-      console.log("[online]reconect")
+      log.info("[online]reconect")
     } else {
-      //    console.log(`[online] pending: ${ClientSocket.pending} connecting :${ClientSocket.connecting}`,)
+      //    log.info(`[online] pending: ${ClientSocket.pending} connecting :${ClientSocket.connecting}`,)
     }
   }, 5000);
 }
 Connect = () => {
   return ClientSocket = tls.connect(options, () => {
-    console.log('client connected',
+    log.info('client connected',
       ClientSocket.authorized ? 'authorized' : 'unauthorized');
     process.stdin.pipe(ClientSocket);
     process.stdin.resume();
@@ -80,13 +82,13 @@ Connect = () => {
     .setEncoding('utf8')
     .setKeepAlive(true, 300000)//Toutes les 5min
     .on('data', (data) => {
-      console.log("online:receveing data")
+      log.info("online:receveing data")
     })
     .on('error', (err) => {
-      console.log('online:Socket error reconecting');
+      log.info('online:Socket error reconecting');
     })
     .on('end', () => {
-      console.log('online:Socket ended from other end!');
+      log.info('online:Socket ended from other end!');
     });
 }
 
@@ -94,13 +96,13 @@ interval = launchInterval()
 
 
 /*  powerMonitor.on('suspend', () => {
-    console.log("[PM][Online]Machine suspending...")
+    log.info("[PM][Online]Machine suspending...")
     if (interval)
       clearInterval(interval)
   });
 
   powerMonitor.on('resume', () => {
-    console.log("[PM][Online]Machine resuming...")
+    log.info("[PM][Online]Machine resuming...")
     interval = launchInterval()
 
   });
