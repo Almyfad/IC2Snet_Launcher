@@ -1,8 +1,6 @@
 const tls = require('tls');
 const fs = require('fs');
 const { Firestore } = require('@google-cloud/firestore');
-console.log(process.env.GCLOUD_PROJECT)
-console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 const firestore = new Firestore();
 const docrefOnline = firestore.collection('online')
 
@@ -10,7 +8,7 @@ const docrefOnline = firestore.collection('online')
 const PORT = 2323
 const MAXCONNECTIONS = 100
 const KILL_SOCKET_TIME = 1800000 //30minutes
-const SOCKET_TIMEOUT = 30000 //30Seconde  //86400000 1jour
+const SOCKET_TIMEOUT = 60000 //30Seconde  //86400000 1jour
 //const tlsSessionStore = {};
 
 const options = {
@@ -37,17 +35,9 @@ const server = tls.createServer(options, (socket) => {
     });
 
     socket.on('data', (data) => {
-        try {
             CurrentDeviceMSg = JSON.parse(data);
             fireDocDevice = docrefOnline.doc(CurrentDeviceMSg.id)
             online()
-        }
-        catch (e) {
-            console.error('🛑❌🛑 Error parsing 🛑❌🛑', data)
-            socket.destroy()
-        }
-
-
     });
 
     socket.on('drain', function () {
@@ -65,7 +55,6 @@ const server = tls.createServer(options, (socket) => {
         console.log('Socket timed out !');
         socket.end('Timed out!');
         offline()
-        // can call socket.destroy() here too.
     });
 
     socket.on('end', (data) => {
@@ -76,7 +65,6 @@ const server = tls.createServer(options, (socket) => {
     socket.on('close', function (error) {
         console.log('Socket closed!');
         //   offline(CurrentDeviceMSg)
-
         if (error) {
             console.log('Socket was closed coz of transmission error');
         }
