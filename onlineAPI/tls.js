@@ -1,5 +1,17 @@
 const tls = require('tls');
 const fs = require('fs');
+const { Firestore } = require('@google-cloud/firestore');
+console.log(process.env.GCLOUD_PROJECT)
+console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
+const firestore = new Firestore();
+const docrefOnline = firestore.collection('online')
+
+
+const PORT = 2323
+const MAXCONNECTIONS = 100
+const KILL_SOCKET_TIME = 1800000 //30minutes
+const SOCKET_TIMEOUT = 30000 //30Seconde  //86400000 1jour
+//const tlsSessionStore = {};
 
 const options = {
 
@@ -11,34 +23,107 @@ const options = {
 };
 
 const server = tls.createServer(options, (socket) => {
+    let CurrentDeviceMSg = null
+    let fireDocDevice = null
     console.log('server connected',
         socket.authorized ? 'authorized' : 'unauthorized');
-    socket.write('welcome!\n');
+    //socket.write('welcome!\n');
     socket.setEncoding('utf8');
     socket.pipe(socket);
 
-
-    socket.on('data', (data) => {
-        console.log(data)
+    socket.setTimeout(SOCKET_TIMEOUT, function () {
+        socket.destroy();
+        console.log('Socket timed out');
     });
+
+    800000
+    socket.on('data', (data) => {
+        try {
+            CurrentDeviceMSg = JSON.parse(data);
+            fireDocDevice = docrefOnline.doc(CurrentDeviceMSg.id)
+            online()
+        }
+        catch (e) {
+            console.error('🛑❌🛑 Error parsing 🛑❌🛑', data)
+            socket.destroy()
+        }
+
+
+    });
+
+    socket.on('drain', function () {
+        console.log('write buffer is empty now .. u can resume the writable stream');
+        socket.resume();
+    });
+
+    socket.on('error', (error) => {
+        console.log('Error : ' + error);
+        offline()
+
+    });
+
+    socket.on('timeout', () => {
+        console.log('Socket timed out !');
+        socket.end('Timed out!');
+        offline()
+        // can call socket.destroy() here too.
+    });
+
+    socket.on('end', (data) => {
+        console.log('Socket ended from other end!');
+        offline()
+    });
+
+    socket.on('close', function (error) {
+        console.log('Socket closed!');
+        //   offline(CurrentDeviceMSg)
+
+        if (error) {
+            console.log('Socket was closed coz of transmission error');
+        }
+    });
+
+    setTimeout(function () {
+        console.log(`🔥🔥🔥 Killing socket for ${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} with v${CurrentDeviceMSg.getVersion}🔥🔥🔥`);
+        socket.destroy();
+    }, KILL_SOCKET_TIME);
+
+
+    const offline = async () => {
+        if (CurrentDeviceMSg)
+            if (CurrentDeviceMSg.id) {
+                console.log(`❌❌❌${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is deconnected with v${CurrentDeviceMSg.getVersion}❌❌❌`)
+                CurrentDeviceMSg.online = false;
+                CurrentDeviceMSg.disconectedAt = new Date();
+                fireDocDevice.set(CurrentDeviceMSg);
+            }
+    }
+
+    const online = async () => {
+        if (CurrentDeviceMSg)
+            if (CurrentDeviceMSg.id) {
+                console.log(`🚀🚀🚀${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is online with v${CurrentDeviceMSg.getVersion}🚀🚀🚀`)
+                CurrentDeviceMSg.connectedAd = new Date();
+                fireDocDevice.set(CurrentDeviceMSg);
+            }
+    }
+
+
 });
 
 
-
-
-const tlsSessionStore = {};
+server.maxConnections = MAXCONNECTIONS;
+/*
 server.on('newSession', (id, data, cb) => {
-    console.log("newSession",Object.keys(tlsSessionStore).length )
+    console.log("newSession", Object.keys(tlsSessionStore).length)
     tlsSessionStore[id.toString('hex')] = data;
     cb();
 });
 server.on('resumeSession', (id, cb) => {
     cb(null, tlsSessionStore[id.toString('hex')] || null);
 });
+*/
 
-
-
-
-server.listen(2323, () => {
+server.listen(PORT, () => {
     console.log('server bound');
 });
