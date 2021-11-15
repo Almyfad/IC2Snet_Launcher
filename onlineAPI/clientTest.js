@@ -1,4 +1,4 @@
-const port = 27017;
+const port = 2323;
 const hostname = 'vps-15b74b37.vps.ovh.net';
 
 const tls = require('tls');
@@ -34,4 +34,3 @@ var socket = tls.connect(options, () => {
 .on('end', () => {
   console.log("End connection");
 });
-
