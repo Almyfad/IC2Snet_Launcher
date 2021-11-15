@@ -5,9 +5,8 @@ const options = {
     // Necessary only if using the client certificate authentication
     key: fs.readFileSync('certs/client/client.key'),
     cert: fs.readFileSync('certs/client/client.crt'),
-
-    // Necessary only if the server uses the self-signed certificate
-    ca: [fs.readFileSync('server-cert.pem')]
+  // Necessary only if the server uses the self-signed certificate
+  ca: fs.readFileSync('certs/ca/ca.crt')
 };
 
 const socket = tls.connect(8000, options, () => {
