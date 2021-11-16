@@ -8,15 +8,14 @@ const path = require('path');
 
 module.exports = (app, log, DeviceId, powerMonitor) => {
   var interval;
-  var reconecting = false;
   const options = {
     host: hostname,
     port: port,
     // Necessary only if using the client certificate authentication
-    key: fs.readFileSync(path.join(__dirname, '/certs/client/client.key')),
-    cert: fs.readFileSync(path.join(__dirname, './certs/client/client.crt')),
+    key: fs.readFileSync(path.join(__dirname,'/certs/client/client.key')),
+    cert: fs.readFileSync(path.join(__dirname,'./certs/client/client.crt')),
     // Necessary only if the server uses the self-signed certificate
-    ca: fs.readFileSync(path.join(__dirname, './certs/ca/ca.crt'))
+    ca: fs.readFileSync(path.join(__dirname,'./certs/ca/ca.crt'))
   };
 
   const CreateMsg = () => {
@@ -50,7 +49,6 @@ module.exports = (app, log, DeviceId, powerMonitor) => {
       username: process.env.username,
       getVersion: app.getVersion(),
       online: true,
-      reconecting: reconecting
     });
 
   }
@@ -72,29 +70,24 @@ module.exports = (app, log, DeviceId, powerMonitor) => {
     }, 5000);
   }
   Connect = () => {
-    return tls.connect(options, () => {
-      log.info('client connected', ClientSocket.authorized ? 'authorized' : 'unauthorized');
+    return  tls.connect(options, () => {
+      log.info('client connected',
+        ClientSocket.authorized ? 'authorized' : 'unauthorized');
+     // process.stdin.pipe(ClientSocket);
+    //  process.stdin.resume();
       ClientSocket.write(CreateMsg())
-      reconecting = false;
+      // socket.end();
     })
       .setEncoding('utf8')
       .setKeepAlive(true, 300000)//Toutes les 5min
       .on('data', (data) => {
-        log.info("[online]receveing data")
-        try {
-          let msg = JSON.parse(data)
-          if (msg)
-            if (msg.type === "SOCKET_MAX_TIME_REACH")
-              if (msg.reconect === true)
-                reconecting = true
-        }
-        catch (err) { }
+        log.info("online:receveing data")
       })
       .on('error', (err) => {
-        log.info('[online]Socket error reconecting');
+        log.info('online:Socket error reconecting');
       })
       .on('end', () => {
-        log.info('[online]Socket ended from other end!');
+        log.info('online:Socket ended from other end!');
       });
   }
 
