@@ -34,9 +34,9 @@ const server = tls.createServer(options, (socket) => {
     });
 
     socket.on('data', (data) => {
-        CurrentDeviceMSg = JSON.parse(data);
-        fireDocDevice = docrefOnline.doc(CurrentDeviceMSg.id)
-        online()
+            CurrentDeviceMSg = JSON.parse(data);
+            fireDocDevice = docrefOnline.doc(CurrentDeviceMSg.id)
+            online()
     });
 
     socket.on('drain', function () {
@@ -71,9 +71,7 @@ const server = tls.createServer(options, (socket) => {
 
     setTimeout(function () {
         console.log(`🔥🔥🔥 Killing socket for ${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} with v${CurrentDeviceMSg.getVersion}🔥🔥🔥`);
-        socket.write(JSON.stringify({ type: "SOCKET_MAX_TIME_REACH", reconect: true }), () => {
-            socket.destroy();
-        })
+        socket.destroy();
     }, KILL_SOCKET_TIME);
 
 
@@ -91,12 +89,8 @@ const server = tls.createServer(options, (socket) => {
         if (CurrentDeviceMSg)
             if (CurrentDeviceMSg.id) {
                 console.log(`🚀🚀🚀${CurrentDeviceMSg.hostname ?? CurrentDeviceMSg.id} is online with v${CurrentDeviceMSg.getVersion}🚀🚀🚀`)
-                if (CurrentDeviceMSg.reconecting === false) {
-                    CurrentDeviceMSg.connectedAd = new Date();
-                    fireDocDevice.set(CurrentDeviceMSg);
-                } else {
-                    fireDocDevice.update(CurrentDeviceMSg);
-                }
+                CurrentDeviceMSg.connectedAd = new Date();
+                fireDocDevice.set(CurrentDeviceMSg);
             }
     }
 
